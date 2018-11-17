@@ -7,8 +7,11 @@
     "serve": "jekyll serve",
     "build": "npm run build:spectacle:v1 && npm run build:spectacle:v3",
     "build:spectacle:v1": "node ./spectacle/bin/spectacle -e -t api/v1-1/assets _data/api-spec-v1-1.json",
+    "build:json:v3": "npm run gulp -- build-v3-spec",
     "build:spectacle:v3": "node ./spectacle/bin/spectacle -e -t api/v3/assets _data/api-spec-v3.json",
-    "watch": "npm-watch"
+    "clean:json:v3": "rm ./_data/api-spec-v3.json",
+    "watch": "npm-watch",
+    "gulp": "./node_modules/.bin/gulp"
   },
   "watch": {
     "build:spectacle:v1": {
@@ -48,6 +51,8 @@
     "grunt-embed": "^0.2.1",
     "grunt-prettify": "^0.4.0",
     "grunt-sass": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-json-transform": "^0.4.5",
     "handlebars": "^4.0.5",
     "highlight.js": "^9.1.0",
     "js-yaml": "^3.8.2",
