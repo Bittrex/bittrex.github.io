@@ -18,7 +18,7 @@ function spectacleTopics(json) {
             }
         }
     });
-}   
+}
 
 function siteDescription(json) {
     return _.assign({}, json, {
@@ -34,12 +34,12 @@ function securityDefinitions(json) {
             "api_key": {
                 "description": "### Overview\n In order to properly sign an authenticated request for the Bittrex v3 API, the following headers must be included:\n\n- `Api-Key`\n\n- `Api-Timestamp`\n\n- `Api-Content-Hash`\n\n- `Api-Signature`\n\n\nThe following sections are instructions for properly populating these headers.\n\n\n #### Api-Key\nPopulate this header with your API key.\n\nExample Value:\n\n`4894xxxxxxxx407e827d05xxxxxxxxxx`\n\n\n #### Api-Timestamp\nPopulate this header with the current time as a UNIX timestamp, in epoch-millisecond format.\n\nSample JS Code Snippet:\n\n``` javascript\nvar timestamp = new Date().getTime();\n```\n\nExample Value:\n\n`1542323450016`\n\n\n #### Api-Content-Hash\nPopulate this header with a SHA512 hash of the request contents, ASCII-encoded. If there are no request contents, populate this header with a SHA512 hash of an empty string.\n\nSample JS Code Snippet:\n\n``` javascript\nvar contentHash = CryptoJS.SHA512(content).toString(CryptoJS.enc.ASCII);\n```\n\nExample Value:\n\n``` markdown\ncf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e\n```\n\n\n#### Api-Signature\nCreate a pre-sign string formed from the following items and concatenating them together:\n1. contents of your Api-Timestamp header\n2. the full URI you are using to make the request (including query string)\n3. contents of your ApiContent-Hash header\n\n\nOnce you have created this pre-sign string, sign it via HMACSHA512, using your API secret as the signing secret. ASCII-encode the result of this operation and populate the Api-Signature header with it.\n\n\nSample JS Code Snippet:\n\n``` javascript\nvar uri = 'https://api.bittrex.com/v3/balances';\nvar preSign = [timestamp, uri, contentHash].join('');\nvar signature = CryptoJS.HmacSHA512(preSign, apiSecret).toString(CryptoJS.enc.ASCII);\n```\n\nExample Pre-Signed Value:\n\n``` markdown\n1542323450016https://api.bittrex.com/v3/balancescf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e\n```\n\nExample Post-Signed Value:\n\n``` markdown\n939047623f0efbe10bfbb32f18e5d8885b2a91be3c3cea82adf0dd2d20892b20bcb6a10a91fec3afcedcc009f2b2a86c5366974cfadcf671fe0490582568f51f\n```\n\n"
             }
-        } 
+        }
     });
 }
 
 function requestExamples(json) {
-    return _.merge({}, json, { 
+    return _.merge({}, json, {
         "paths": {
             "/account": {
                 "get": {
@@ -180,7 +180,7 @@ function requestExamples(json) {
                     "x-btx-request-example": "https://api.bittrex.com/v3/withdrawals/{withdrawalId}"
                 }
             }
-        } 
+        }
     });
 }
 
