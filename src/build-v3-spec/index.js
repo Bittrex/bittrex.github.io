@@ -2,6 +2,7 @@ var R = require('ramda'),
     _ = require('lodash');
 
 function spectacleTopics(json) {
+    console.log('Adding Spectacle topics...');
     return _.assign({}, json, {
         'x-spectacle-topics': {
             "Availability": {
@@ -21,6 +22,7 @@ function spectacleTopics(json) {
 }
 
 function siteDescription(json) {
+    console.log('Adding site description...');
     return _.assign({}, json, {
         "info": {
             "version": "v3",
@@ -31,6 +33,7 @@ function siteDescription(json) {
 }
 
 function securityDefinitions(json) {
+    console.log('Adding security definition section...');
     return _.assign({}, json, {
         "securityDefinitions": {
             "api_key": {
@@ -41,6 +44,7 @@ function securityDefinitions(json) {
 }
 
 function requestExamples(json) {
+    console.log('Adding request URL examples...');
     return _.merge({}, json, {
         "paths": {
             "/account": {
@@ -186,11 +190,34 @@ function requestExamples(json) {
     });
 }
 
+// removes the Uuid examples from specified definitions
+function removeUuidExamples(json) {
+    console.log('Removing examples from uuid-formatted properties in "definitions"...');
+    var definitions = json['definitions'];
+    return _.assign({}, json, {
+        definitions: _.mapValues(definitions, function (definition, defKey) {
+            var properties = definition['properties'];
+            return _.assign(definition, {
+                properties: _.mapValues(properties, function (property, propKey) {
+                    var format = property['format'],
+                        example = property['example'];
+                    if (format && format === 'uuid' && example) {
+                        // console.log('Removing example from', defKey + '.' + propKey);
+                        return _.omit(property, 'example');
+                    } else {
+                        return property;
+                    }
+                })
+            });
+        })
+    });
+}
 
 
 module.exports = R.pipe(
     spectacleTopics,
     siteDescription,
     securityDefinitions,
-    requestExamples
+    requestExamples,
+    removeUuidExamples
 );
