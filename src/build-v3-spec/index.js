@@ -219,7 +219,6 @@ function transformPathParameters(json) {
     var paths = json['paths'];
 
     var transformUuidParameter = function (param) {
-        delete param.format;
         return _.assign({}, param, {
             description: '_(guid-formatted string)_ - ' + param.description
         });
