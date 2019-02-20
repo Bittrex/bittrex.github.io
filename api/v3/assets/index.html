@@ -182,7 +182,7 @@
       </button>
       <div class="example-box doc-content"></div>
       <article>
-        <h1 class="doc-title">
+        <h1 class="doc-title">Bittrex API
           <span>API Reference</span>
         </h1>
         <div id="introduction" data-traverse-target="introduction">
@@ -202,6 +202,9 @@
                 <!-- </div> -->
                 <h5>Schemes:
                   <span>https</span>
+                </h5>
+                <h5>Version:
+                  <span>v3</span>
                 </h5>
               </section>
             </div>
@@ -303,7 +306,7 @@
                   <li>the full URI you are using to make the request (including query string)</li>
                   <li>contents of your <code>Api-Content-Hash</code> header</li>
                 </ol>
-                <p>Once you have created this pre-sign string, sign it via HMACSHA512, using your API secret as the signing secret. ASCII-encode the result of this operation and populate the Api-Signature header with it.</p>
+                <p>Once you have created this pre-sign string, sign it via HMACSHA512, using your API secret as the signing secret. ASCII-encode the result of this operation and populate the <code>Api-Signature</code> header with it.</p>
                 <p>Sample JS Code Snippet:</p> <pre><code class="hljs lang-javascript"><span class="hljs-keyword">var</span> uri = <span class="hljs-string">'https://api.bittrex.com/v3/balances'</span>;
 <span class="hljs-keyword">var</span> preSign = [timestamp, uri, contentHash].join(<span class="hljs-string">''</span>);
 <span class="hljs-keyword">var</span> signature = CryptoJS.HmacSHA512(preSign, apiSecret).toString(CryptoJS.enc.ASCII);
@@ -1272,7 +1275,6 @@
                     <div class="prop-title">depositId:
                       <span class="prop-type">
                         <span class="json-property-type">string</span>
-                        <span class="json-property-format">(uuid)</span>
                         <span class="json-property-range" title="Value limits"></span>
                       </span>
                     </div>
@@ -1280,7 +1282,8 @@
                     <div class="prop-subtitle"> in path </div>
                   </div>
                   <div class="prop-value">
-                    <p>ID of the deposit to retrieve</p>
+                    <p>
+                      <em>(guid-formatted string)</em> - ID of the deposit to retrieve</p>
                   </div>
                 </div>
               </section>
@@ -2150,7 +2153,7 @@
   <span class="hljs-attr">&quot;timeInForce&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;trigger&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;triggerTargetPrice&quot;</span>: <span class="hljs-string">&quot;number (double)&quot;</span>,
-  <span class="hljs-attr">&quot;clientId&quot;</span>: <span class="hljs-string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>
+  <span class="hljs-attr">&quot;clientId&quot;</span>: <span class="hljs-string">&quot;string (uuid)&quot;</span>
 }
 </code></pre>
                 <!-- </div> -->
@@ -2348,7 +2351,6 @@
                     <div class="prop-title">orderId:
                       <span class="prop-type">
                         <span class="json-property-type">string</span>
-                        <span class="json-property-format">(uuid)</span>
                         <span class="json-property-range" title="Value limits"></span>
                       </span>
                     </div>
@@ -2356,7 +2358,8 @@
                     <div class="prop-subtitle"> in path </div>
                   </div>
                   <div class="prop-value">
-                    <p>ID of order to retrieve</p>
+                    <p>
+                      <em>(guid-formatted string)</em> - ID of order to retrieve</p>
                   </div>
                 </div>
               </section>
@@ -2447,7 +2450,6 @@
                     <div class="prop-title">orderId:
                       <span class="prop-type">
                         <span class="json-property-type">string</span>
-                        <span class="json-property-format">(uuid)</span>
                         <span class="json-property-range" title="Value limits"></span>
                       </span>
                     </div>
@@ -2455,7 +2457,8 @@
                     <div class="prop-subtitle"> in path </div>
                   </div>
                   <div class="prop-value">
-                    <p>ID of order to cancel</p>
+                    <p>
+                      <em>(guid-formatted string)</em> - ID of order to cancel</p>
                   </div>
                 </div>
               </section>
@@ -2589,9 +2592,7 @@
           <div class="doc-row">
             <div class="doc-copy">
               <section class="swagger-operation-description">
-                <p>List subaccounts.
-                  <em>(NOT YET IMPLEMENTED)</em>
-                </p>
+                <p>List subaccounts. (NOT YET IMPLEMENTED)</p>
               </section>
             </div>
           </div>
@@ -2675,7 +2676,7 @@
                 </h5>
                 <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
   {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;string (uuid)&quot;</span>
   }
 ]
 </code></pre>
@@ -2769,7 +2770,7 @@
                   <span>(200 OK)</span>
                 </h5>
                 <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;string (uuid)&quot;</span>
 }
 </code></pre>
                 <!-- </div> -->
@@ -2810,7 +2811,6 @@
                     <div class="prop-title">subaccountId:
                       <span class="prop-type">
                         <span class="json-property-type">string</span>
-                        <span class="json-property-format">(uuid)</span>
                         <span class="json-property-range" title="Value limits"></span>
                       </span>
                     </div>
@@ -2818,7 +2818,8 @@
                     <div class="prop-subtitle"> in path </div>
                   </div>
                   <div class="prop-value">
-                    <p>ID of the subaccount to retrieve details for</p>
+                    <p>
+                      <em>(guid-formatted string)</em> - ID of the subaccount to retrieve details for</p>
                   </div>
                 </div>
               </section>
@@ -2856,7 +2857,7 @@
                   <span>(200 OK)</span>
                 </h5>
                 <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;string (uuid)&quot;</span>
 }
 </code></pre>
                 <!-- </div> -->
@@ -3236,7 +3237,6 @@
                     <div class="prop-title">withdrawalId:
                       <span class="prop-type">
                         <span class="json-property-type">string</span>
-                        <span class="json-property-format">(uuid)</span>
                         <span class="json-property-range" title="Value limits"></span>
                       </span>
                     </div>
@@ -3244,7 +3244,8 @@
                     <div class="prop-subtitle"> in path </div>
                   </div>
                   <div class="prop-value">
-                    <p>ID of withdrawal to retrieve</p>
+                    <p>
+                      <em>(guid-formatted string)</em> - ID of withdrawal to retrieve</p>
                   </div>
                 </div>
               </section>
@@ -3331,7 +3332,6 @@
                     <div class="prop-title">withdrawalId:
                       <span class="prop-type">
                         <span class="json-property-type">string</span>
-                        <span class="json-property-format">(uuid)</span>
                         <span class="json-property-range" title="Value limits"></span>
                       </span>
                     </div>
@@ -3339,7 +3339,8 @@
                     <div class="prop-subtitle"> in path </div>
                   </div>
                   <div class="prop-value">
-                    <p>ID of withdrawal to cancel</p>
+                    <p>
+                      <em>(guid-formatted string)</em> - ID of withdrawal to cancel</p>
                   </div>
                 </div>
               </section>
@@ -4777,7 +4778,7 @@
   <span class="hljs-attr">&quot;timeInForce&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;trigger&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;triggerTargetPrice&quot;</span>: <span class="hljs-string">&quot;number (double)&quot;</span>,
-  <span class="hljs-attr">&quot;clientId&quot;</span>: <span class="hljs-string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>
+  <span class="hljs-attr">&quot;clientId&quot;</span>: <span class="hljs-string">&quot;string (uuid)&quot;</span>
 }
 </code></pre>
                 <!-- </div> -->
@@ -4853,7 +4854,7 @@
               <section>
                 <h5>Example</h5>
                 <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;string (uuid)&quot;</span>
 }
 </code></pre>
                 <!-- </div> -->

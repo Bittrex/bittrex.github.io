@@ -202,7 +202,7 @@ function removeUuidExamples(json) {
                     var format = property['format'],
                         example = property['example'];
                     if (format && format === 'uuid' && example) {
-                        // console.log('Removing example from', defKey + '.' + propKey);
+                        console.log('Removing example', example, 'from', defKey + '.' + propKey);
                         return _.omit(property, 'example');
                     } else {
                         return property;
@@ -214,10 +214,50 @@ function removeUuidExamples(json) {
 }
 
 
+function transformPathParameters(json) {
+    console.log('Transforming Path Parameters');
+    var paths = json['paths'];
+
+    var transformUuidParameter = function (param) {
+        delete param.format;
+        return _.assign({}, param, {
+            description: '_(guid-formatted string)_ - ' + param.description
+        });
+    }
+
+    var transformParameters = function (parameters) {
+        if (!parameters) return;
+        return _.map(parameters, function(parameter, index, arr) {
+            if (parameter['format'] === 'uuid') {
+                return transformUuidParameter(parameter);
+            } else {
+                return parameter;
+            }
+        });
+    };
+
+    var transformOperation = function (operation, opKey) {
+        return _.assign({}, operation, {
+            parameters: transformParameters(operation['parameters'])
+        });
+    };
+
+    var transformPaths = function (path, pathKey) {
+        var transformed = _.mapValues(path, transformOperation);
+        return _.assign({}, path, transformed);
+    };
+
+    return _.assign({}, json, {
+        paths: _.mapValues(paths, transformPaths)
+    });
+}
+
+
 module.exports = R.pipe(
     spectacleTopics,
     siteDescription,
     securityDefinitions,
     requestExamples,
-    removeUuidExamples
+    removeUuidExamples,
+    transformPathParameters
 );
