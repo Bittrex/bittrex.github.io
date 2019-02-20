@@ -299,7 +299,7 @@
                                 "result": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/definitions/MarketSummary"
+                                        "$ref": "#/definitions/OrderBook"
                                     }
                                 }
                             }
@@ -464,7 +464,7 @@
                     }
                 ],
                 "x-btx-authenticated": true,
-                "x-btx-request-example": "https://api.bittrex.com/api/v1.1/market/buylimit?apikey=API_KEY&uuid=ORDER_UUID",
+                "x-btx-request-example": "https://api.bittrex.com/api/v1.1/market/cancel?apikey=API_KEY&uuid=ORDER_UUID",
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -1173,15 +1173,7 @@
             "deprecated": false,
             "tags": [],
             "security": null,
-            "parameters": [
-                {
-                    "name": "marketName",
-                    "type": "string",
-                    "in": "",
-                    "description": "the market identifier (e.g. BTC-ETH)",
-                    "required": true
-                }
-            ],
+            "parameters": [],
             "x-btx-request-example": "https://socket.bittrex.com/signalr",
             "responses": {
                 "Success": {
@@ -1206,15 +1198,7 @@
             "deprecated": false,
             "tags": [],
             "security": null,
-            "parameters": [
-                {
-                    "name": "marketName",
-                    "type": "string",
-                    "in": "",
-                    "description": "the market identifier (e.g. BTC-ETH)",
-                    "required": true
-                }
-            ],
+            "parameters": [],
             "x-btx-request-example": "https://socket.bittrex.com/signalr",
             "responses": {
                 "Success": {
@@ -1699,49 +1683,36 @@
         "DepositHistoryEntry": {
             "type": "object",
             "properties": {
-                "PaymentUuid": {
-                    "format": "uuid",
-                    "type": "string",
-                    "example": "b52c7a5c-90c6-4c6e-835c-e16df12708b1"
+                "Id": {
+                    "format": "integer",
+                    "type": "number",
+                    "example": 1
+                },
+                "Amount": {
+                    "format": "double",
+                    "type": "number",
+                    "example": 2.12345678
                 },
                 "Currency": {
                     "type": "string",
                     "example": "BTC"
                 },
-                "Amount": {
-                    "format": "double",
+                "Confirmations": {
                     "type": "number",
-                    "example": 0.00156121
+                    "example": 2
                 },
-                "Address": {
-                    "type": "string",
-                    "example": "1DeaaFBdbB5nrHj87x3NHS4onvw1GPNyAu"
-                },
-                "Opened": {
+                "LastUpdated": {
                     "format": "date-time",
                     "type": "string",
-                    "example": "2014-07-11T03:41:25.323"
-                },
-                "Authorized": {
-                    "type": "boolean"
-                },
-                "PendingPayment": {
-                    "type": "boolean"
-                },
-                "TxCost": {
-                    "format": "double",
-                    "type": "number",
-                    "example": 0.00020000
+                    "example": "2014-02-13T07:38:53.883"
                 },
                 "TxId": {
                     "type": "string",
-                    "example": "b4a575c2a71c7e56d02ab8e26bb1ef0a2f6cf2094f6ca2116476a569c1e84f6e"
+                    "example": "e26d3b33fcfc2cb0c74d0938034956ea590339170bf4102f080eab4b85da9bde"
                 },
-                "Canceled": {
-                    "type": "boolean"
-                },
-                "InvalidAddress": {
-                    "type": "boolean"
+                "CryptoAddress": {
+                    "type": "string",
+                    "example": "15VyEAT4uf7ycrNWZVb1eGMzrs21BH95Va"
                 }
             }
         },

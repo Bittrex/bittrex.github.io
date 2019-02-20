@@ -276,28 +276,32 @@
                   </li>
                 </ul>
                 <p>The following sections are instructions for properly populating these headers.</p>
+                <hr>
                 <h4 id="api-key">Api-Key</h4>
                 <p>Populate this header with your API key.</p>
                 <p>Example Value:</p>
                 <p><code>4894xxxxxxxx407e827d05xxxxxxxxxx</code></p>
+                <hr>
                 <h4 id="api-timestamp">Api-Timestamp</h4>
                 <p>Populate this header with the current time as a UNIX timestamp, in epoch-millisecond format.</p>
                 <p>Sample JS Code Snippet:</p> <pre><code class="hljs lang-javascript"><span class="hljs-keyword">var</span> timestamp = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().getTime();
 </code></pre>
                 <p>Example Value:</p>
                 <p><code>1542323450016</code></p>
+                <hr>
                 <h4 id="api-content-hash">Api-Content-Hash</h4>
                 <p>Populate this header with a SHA512 hash of the request contents, ASCII-encoded. If there are no request contents, populate this header with a SHA512 hash of an empty string.</p>
                 <p>Sample JS Code Snippet:</p> <pre><code class="hljs lang-javascript"><span class="hljs-keyword">var</span> contentHash = CryptoJS.SHA512(content).toString(CryptoJS.enc.ASCII);
 </code></pre>
                 <p>Example Value:</p> <pre><code class="hljs lang-markdown">cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e
 </code></pre>
+                <hr>
                 <h4 id="api-signature">Api-Signature</h4>
                 <p>Create a pre-sign string formed from the following items and concatenating them together:</p>
                 <ol>
-                  <li>contents of your Api-Timestamp header</li>
+                  <li>contents of your <code>Api-Timestamp</code> header</li>
                   <li>the full URI you are using to make the request (including query string)</li>
-                  <li>contents of your ApiContent-Hash header</li>
+                  <li>contents of your <code>Api-Content-Hash</code> header</li>
                 </ol>
                 <p>Once you have created this pre-sign string, sign it via HMACSHA512, using your API secret as the signing secret. ASCII-encode the result of this operation and populate the Api-Signature header with it.</p>
                 <p>Sample JS Code Snippet:</p> <pre><code class="hljs lang-javascript"><span class="hljs-keyword">var</span> uri = <span class="hljs-string">'https://api.bittrex.com/v3/balances'</span>;
@@ -307,7 +311,21 @@
                 <p>Example Pre-Signed Value:</p> <pre><code class="hljs lang-markdown">1542323450016https://api.bittrex.com/v3/balancescf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e
 </code></pre>
                 <p>Example Post-Signed Value:</p> <pre><code class="hljs lang-markdown">939047623f0efbe10bfbb32f18e5d8885b2a91be3c3cea82adf0dd2d20892b20bcb6a10a91fec3afcedcc009f2b2a86c5366974cfadcf671fe0490582568f51f
-</code></pre> </section>
+</code></pre>
+                <hr>
+                <h4 id="api-subaccount-id">Api-Subaccount-Id</h4>
+                <p>
+                  <em>(NOTE: This functionality is limited to partners and unavailable to general traders.)</em>
+                </p>
+                <p>If you wish to make a request on behalf of a subaccount, you will need to:</p>
+                <ol>
+                  <li>Authenticate using all 4 of the headers above referring to your master account.</li>
+                  <li>Populate the <code>Api-Subaccount-Id</code> header with the Guid of the subaccount you wish to impersonate for this request. The specified subaccount
+                    <em>must</em> be a subaccount of the master account used to authenticate the request.</li>
+                </ol>
+                <p>Example Value:</p> <pre><code class="hljs lang-markdown"> x111x11x-8968-48ac-b956-x1x11x111111
+</code></pre>
+                <hr> </section>
               <section class="swagger-security-definition-properties"> </section>
             </div>
           </div>
@@ -1100,7 +1118,7 @@
                 </h5>
                 <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
   {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>,
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;string (uuid)&quot;</span>,
     <span class="hljs-attr">&quot;currencySymbol&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-string">&quot;number (double)&quot;</span>,
     <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -1204,7 +1222,7 @@
                 </h5>
                 <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
   {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>,
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;string (uuid)&quot;</span>,
     <span class="hljs-attr">&quot;currencySymbol&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-string">&quot;number (double)&quot;</span>,
     <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -1300,7 +1318,7 @@
                   <span>(200 OK)</span>
                 </h5>
                 <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>,
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;string (uuid)&quot;</span>,
   <span class="hljs-attr">&quot;currencySymbol&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-string">&quot;number (double)&quot;</span>,
   <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -2051,7 +2069,7 @@
                 </h5>
                 <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
   {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>,
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;string (uuid)&quot;</span>,
     <span class="hljs-attr">&quot;marketName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;direction&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -2167,7 +2185,7 @@
                   <span>(200 OK)</span>
                 </h5>
                 <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>,
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;string (uuid)&quot;</span>,
   <span class="hljs-attr">&quot;marketName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;direction&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -2276,7 +2294,7 @@
                 </h5>
                 <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
   {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>,
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;string (uuid)&quot;</span>,
     <span class="hljs-attr">&quot;marketName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;direction&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -2376,7 +2394,7 @@
                   <span>(200 OK)</span>
                 </h5>
                 <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>,
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;string (uuid)&quot;</span>,
   <span class="hljs-attr">&quot;marketName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;direction&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -2571,7 +2589,9 @@
           <div class="doc-row">
             <div class="doc-copy">
               <section class="swagger-operation-description">
-                <p>List subaccounts. (NOT YET IMPLEMENTED)</p>
+                <p>List subaccounts.
+                  <em>(NOT YET IMPLEMENTED)</em>
+                </p>
               </section>
             </div>
           </div>
@@ -2952,7 +2972,7 @@
                 </h5>
                 <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
   {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>,
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;string (uuid)&quot;</span>,
     <span class="hljs-attr">&quot;currencySymbol&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-string">&quot;number (double)&quot;</span>,
     <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -3059,7 +3079,7 @@
                   <span>(200 OK)</span>
                 </h5>
                 <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>,
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;string (uuid)&quot;</span>,
   <span class="hljs-attr">&quot;currencySymbol&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-string">&quot;number (double)&quot;</span>,
   <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -3164,7 +3184,7 @@
                 </h5>
                 <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
   {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>,
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;string (uuid)&quot;</span>,
     <span class="hljs-attr">&quot;currencySymbol&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-string">&quot;number (double)&quot;</span>,
     <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -3262,7 +3282,7 @@
                   <span>(200 OK)</span>
                 </h5>
                 <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>,
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;string (uuid)&quot;</span>,
   <span class="hljs-attr">&quot;currencySymbol&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-string">&quot;number (double)&quot;</span>,
   <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -3764,7 +3784,7 @@
               <section>
                 <h5>Example</h5>
                 <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>,
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;string (uuid)&quot;</span>,
   <span class="hljs-attr">&quot;currencySymbol&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-string">&quot;number (double)&quot;</span>,
   <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -4614,7 +4634,7 @@
               <section>
                 <h5>Example</h5>
                 <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>,
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;string (uuid)&quot;</span>,
   <span class="hljs-attr">&quot;marketName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;direction&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -4973,7 +4993,7 @@
               <section>
                 <h5>Example</h5>
                 <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;00000000-0000-0000-0000-000000000000&quot;</span>,
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;string (uuid)&quot;</span>,
   <span class="hljs-attr">&quot;currencySymbol&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-string">&quot;number (double)&quot;</span>,
   <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
