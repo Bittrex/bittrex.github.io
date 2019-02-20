@@ -1,1792 +1,1839 @@
 {
-  "swagger": "2.0",
-  "info": {
-    "version": "v3",
-    "title": "Bittrex API",
-    "description": "API for interacting with the bittrex.com exchange"
-  },
-  "host": "api.bittrex.com",
-  "basePath": "/v3",
-  "schemes": [
-    "https"
-  ],
-  "paths": {
-    "/account": {
-      "get": {
-        "tags": [
-          "Account"
-        ],
-        "description": "Retrieve account information. _(NOT YET IMPLEMENTED)_",
-        "operationId": "Account_Get",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Account"
-            }
-          }
-        },
-        "x-btx-authenticated": true
-      }
+    "swagger": "2.0",
+    "info": {
+        "version": "v3",
+        "title": "Bittrex API",
+        "description": "Bittrex provides a simple and powerful API consisting of REST endpoints for transactional operations and a complementary Websocket service providing streaming market, order, and balance updates.\n\n Access to and use of the API is governed by our Terms of Service.\n If you are a user of Bittrex.com, the applicable Terms of Service are available [here](https://support.bittrex.com/hc/en-us/articles/360000560871).\n If you are a user of Bittrex International, the applicable Terms of Service are available [here](https://support.bittrex.com/hc/en-us/articles/360001411486).\n\n If you have any API questions, feedback, or recommendations please post a question via our [support center](https://support.bittrex.com)."
     },
-    "/addresses": {
-      "get": {
-        "tags": [
-          "Addresses"
-        ],
-        "description": "List deposit addresses. _(NOT YET IMPLEMENTED)_",
-        "operationId": "Addresses_List",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Address"
-              }
+    "host": "api.bittrex.com",
+    "basePath": "/v3",
+    "schemes": [
+        "https"
+    ],
+    "paths": {
+        "/account": {
+            "get": {
+                "tags": [
+                    "Account"
+                ],
+                "description": "Retrieve account information. _(NOT YET IMPLEMENTED)_",
+                "operationId": "Account_Get",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Account"
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/account"
             }
-          }
         },
-        "x-btx-authenticated": true
-      },
-      "post": {
-        "tags": [
-          "Addresses"
-        ],
-        "description": "Request provisioning of a deposit address.",
-        "operationId": "Addresses_Create",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "newAddress",
-            "in": "body",
-            "description": "information including ID of the currency to provision a deposit address for",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/NewAddress"
+        "/addresses": {
+            "get": {
+                "tags": [
+                    "Addresses"
+                ],
+                "description": "List deposit addresses. _(NOT YET IMPLEMENTED)_",
+                "operationId": "Addresses_List",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Address"
+                            }
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/addresses"
+            },
+            "post": {
+                "tags": [
+                    "Addresses"
+                ],
+                "description": "Request provisioning of a deposit address.",
+                "operationId": "Addresses_Create",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "newAddress",
+                        "in": "body",
+                        "description": "information including ID of the currency to provision a deposit address for",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NewAddress"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Address"
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/addresses"
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Address"
-            }
-          }
         },
-        "x-btx-authenticated": true
-      }
-    },
-    "/addresses/{currencySymbol}": {
-      "get": {
-        "tags": [
-          "Addresses"
-        ],
-        "description": "Retrieve the deposit address for a particular currency.",
-        "operationId": "Addresses_Get",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "currencySymbol",
-            "in": "path",
-            "description": "symbol of the currency to retrieve the deposit address for",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Address"
+        "/addresses/{currencySymbol}": {
+            "get": {
+                "tags": [
+                    "Addresses"
+                ],
+                "description": "Retrieve the deposit address for a particular currency.",
+                "operationId": "Addresses_Get",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "currencySymbol",
+                        "in": "path",
+                        "description": "symbol of the currency to retrieve the deposit address for",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Address"
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/addresses/{currencySymbol}"
             }
-          }
         },
-        "x-btx-authenticated": true
-      }
-    },
-    "/balances": {
-      "get": {
-        "tags": [
-          "Balances"
-        ],
-        "description": "List account balances across available currencies.",
-        "operationId": "Balances_List",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Balance"
-              }
+        "/balances": {
+            "get": {
+                "tags": [
+                    "Balances"
+                ],
+                "description": "List account balances across available currencies.",
+                "operationId": "Balances_List",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Balance"
+                            }
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/balances"
             }
-          }
         },
-        "x-btx-authenticated": true
-      }
-    },
-    "/balances/{currencySymbol}": {
-      "get": {
-        "tags": [
-          "Balances"
-        ],
-        "description": "Retrieve account balance for a specific currency.",
-        "operationId": "Balances_Get",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "currencySymbol",
-            "in": "path",
-            "description": "unique symbol of the currency to retrieve the account balance for",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Balance"
+        "/balances/{currencySymbol}": {
+            "get": {
+                "tags": [
+                    "Balances"
+                ],
+                "description": "Retrieve account balance for a specific currency.",
+                "operationId": "Balances_Get",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "currencySymbol",
+                        "in": "path",
+                        "description": "unique symbol of the currency to retrieve the account balance for",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Balance"
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/balances/{currencySymbol}"
             }
-          }
         },
-        "x-btx-authenticated": true
-      }
-    },
-    "/currencies": {
-      "get": {
-        "tags": [
-          "Currencies"
-        ],
-        "description": "List currencies with optional health info.",
-        "operationId": "Currencies_List",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Currency"
-              }
+        "/currencies": {
+            "get": {
+                "tags": [
+                    "Currencies"
+                ],
+                "description": "List currencies with optional health info.",
+                "operationId": "Currencies_List",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Currency"
+                            }
+                        }
+                    }
+                },
+                "x-btx-request-example": "https://api.bittrex.com/v3/currencies"
             }
-          }
+        },
+        "/currencies/{symbol}": {
+            "get": {
+                "tags": [
+                    "Currencies"
+                ],
+                "description": "Retrieve info on a specified currency.",
+                "operationId": "Currencies_Get",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "symbol",
+                        "in": "path",
+                        "description": "symbol of the currency to retrieve",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Currency"
+                        }
+                    }
+                },
+                "x-btx-request-example": "https://api.bittrex.com/v3/currencies/{symbol}"
+            }
+        },
+        "/deposits": {
+            "get": {
+                "tags": [
+                    "Deposits"
+                ],
+                "description": "List historical deposits.",
+                "operationId": "Deposits_List",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "filter by deposit status (PENDING not allowed, use /deposits/pending to list pending deposits)",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "PENDING",
+                            "COMPLETED",
+                            "ERROR"
+                        ]
+                    },
+                    {
+                        "name": "currencySymbol",
+                        "in": "query",
+                        "description": "filter by currency",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Deposit"
+                            }
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/deposits?status=COMPLETED"
+            }
+        },
+        "/deposits/pending": {
+            "get": {
+                "tags": [
+                    "Deposits"
+                ],
+                "description": "List pending deposits.",
+                "operationId": "Deposits_ListPending",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "currencySymbol",
+                        "in": "query",
+                        "description": "filter by currency",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Deposit"
+                            }
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/deposits/pending"
+            }
+        },
+        "/deposits/{depositId}": {
+            "get": {
+                "tags": [
+                    "Deposits"
+                ],
+                "description": "Retrieve information for a specific deposit. _(NOT YET IMPLEMENTED)_",
+                "operationId": "Deposits_Get",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "depositId",
+                        "in": "path",
+                        "description": "_(guid-formatted string)_ - ID of the deposit to retrieve",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Deposit"
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/deposits/{depositId}"
+            }
+        },
+        "/markets": {
+            "get": {
+                "tags": [
+                    "Markets"
+                ],
+                "description": "List markets with optional summary information.",
+                "operationId": "Markets_List",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "includeSummary",
+                        "in": "query",
+                        "description": "Include market summary information in results.",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Market"
+                            }
+                        }
+                    }
+                },
+                "x-btx-request-example": "https://api.bittrex.com/v3/markets"
+            }
+        },
+        "/markets/{marketName}": {
+            "get": {
+                "tags": [
+                    "Markets"
+                ],
+                "description": "Retrieve information for a specific market.",
+                "operationId": "Markets_Get",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "marketName",
+                        "in": "path",
+                        "description": "name of market to retrieve",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "includeSummary",
+                        "in": "query",
+                        "description": "Include market summary information in results.",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Market"
+                        }
+                    }
+                },
+                "x-btx-request-example": "https://api.bittrex.com/v3/markets/{marketName}"
+            }
+        },
+        "/markets/{marketName}/orderbook": {
+            "get": {
+                "tags": [
+                    "Markets"
+                ],
+                "description": "Retrieve the order book for a specific market.",
+                "operationId": "Markets_GetOrderBook",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "marketName",
+                        "in": "path",
+                        "description": "name of market to retrieve order book for",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "depth",
+                        "in": "query",
+                        "description": "depth of order book to return",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "filter results based on order direction (buy or sell)",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "BUY",
+                            "SELL"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/OrderBook"
+                        }
+                    }
+                },
+                "x-btx-request-example": "https://api.bittrex.com/v3/markets/{marketName}/orderbook"
+            }
+        },
+        "/markets/{marketName}/history": {
+            "get": {
+                "tags": [
+                    "Markets"
+                ],
+                "description": "Retrieve the order history for a specific market.",
+                "operationId": "Markets_GetHistory",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "marketName",
+                        "in": "path",
+                        "description": "name of market to retrieve history for",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/HistoryEntry"
+                            }
+                        }
+                    }
+                },
+                "x-btx-request-example": "https://api.bittrex.com/v3/markets/{marketName}/history"
+            }
+        },
+        "/markets/{marketName}/ticks": {
+            "get": {
+                "tags": [
+                    "Markets"
+                ],
+                "description": "Retrieve ticks for a specific market.",
+                "operationId": "Markets_GetTicks",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "marketName",
+                        "in": "path",
+                        "description": "name of market to retrieve ticks for",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "tickInterval",
+                        "in": "query",
+                        "description": "desired time interval between ticks",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "MINUTE_1",
+                            "MINUTE_5",
+                            "MINUTE_30",
+                            "HOUR_1",
+                            "DAY_1"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Tick"
+                            }
+                        }
+                    }
+                },
+                "x-btx-request-example": "https://api.bittrex.com/v3/markets/{marketName}/ticks"
+            }
+        },
+        "/orders": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "description": "List historical orders.",
+                "operationId": "Orders_List",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "filter by order status (OPEN not allowed, use /orders/open to list open orders",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "OPEN",
+                            "FILLED",
+                            "CANCELLED"
+                        ]
+                    },
+                    {
+                        "name": "marketId",
+                        "in": "query",
+                        "description": "filter by market ID",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "number of items per page (default 100, max 200)",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "pageNumber",
+                        "in": "query",
+                        "description": "page number to retrieve",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Order"
+                            }
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/orders"
+            },
+            "post": {
+                "tags": [
+                    "Orders"
+                ],
+                "description": "Create a new order.",
+                "operationId": "Orders_Create",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "newOrder",
+                        "in": "body",
+                        "description": "information specifying the order to create",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NewOrder"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/orders"
+            }
+        },
+        "/orders/open": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "description": "List open orders.",
+                "operationId": "Orders_ListOpen",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "marketId",
+                        "in": "query",
+                        "description": "filter by market ID",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Order"
+                            }
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/orders/open"
+            }
+        },
+        "/orders/{orderId}": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "description": "Retrieve information on a specific order.",
+                "operationId": "Orders_Get",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "description": "ID of order to retrieve",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/orders/{orderId}"
+            },
+            "delete": {
+                "tags": [
+                    "Orders"
+                ],
+                "description": "Cancel an order.",
+                "operationId": "Orders_Delete",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "description": "ID of order to cancel",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/orders/{orderId}"
+            }
+        },
+        "/status": {
+            "get": {
+                "tags": [
+                    "Status"
+                ],
+                "description": "Check service status.",
+                "operationId": "Status_Get",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ServiceStatus"
+                        }
+                    }
+                },
+                "x-btx-request-example": "https://api.bittrex.com/v3/status"
+            }
+        },
+        "/subaccounts": {
+            "get": {
+                "tags": [
+                    "Subaccounts"
+                ],
+                "description": "List subaccounts. _(NOT YET IMPLEMENTED)_",
+                "operationId": "Subaccounts_List",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "number of items per page (default 100, max 200)",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "pageNumber",
+                        "in": "query",
+                        "description": "page number to retrieve",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Subaccount"
+                            }
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/subaccounts"
+            },
+            "post": {
+                "tags": [
+                    "Subaccounts"
+                ],
+                "description": "Create a new subaccount.",
+                "operationId": "Subaccounts_Create",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "newSubaccount",
+                        "in": "body",
+                        "description": "information specifying the subaccount to create",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NewSubaccount"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Subaccount"
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/subaccounts"
+            }
+        },
+        "/subaccounts/{subaccountId}": {
+            "get": {
+                "tags": [
+                    "Subaccounts"
+                ],
+                "description": "Retrieve details for a specified subaccount. _(NOT YET IMPLEMENTED)_",
+                "operationId": "Subaccounts_Get",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "subaccountId",
+                        "in": "path",
+                        "description": "ID of the subaccount to retrieve details for",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Subaccount"
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/subaccounts/{subaccountId}"
+            }
+        },
+        "/withdrawals": {
+            "get": {
+                "tags": [
+                    "Withdrawals"
+                ],
+                "description": "List historical withdrawals.",
+                "operationId": "Withdrawals_List",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "filter by withdrawal status (PENDING not allowed, use /withdrawals/pending to list pending withdrawals)",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "PENDING",
+                            "COMPLETED",
+                            "CANCELLED",
+                            "ERROR"
+                        ]
+                    },
+                    {
+                        "name": "currencySymbol",
+                        "in": "query",
+                        "description": "filter by currency",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Withdrawal"
+                            }
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/withdrawals"
+            },
+            "post": {
+                "tags": [
+                    "Withdrawals"
+                ],
+                "description": "Create a new withdrawal.",
+                "operationId": "Withdrawals_Create",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "newWithdrawal",
+                        "in": "body",
+                        "description": "information specifying the withdrawal to create",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NewWithdrawal"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Withdrawal"
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/withdrawals"
+            }
+        },
+        "/withdrawals/pending": {
+            "get": {
+                "tags": [
+                    "Withdrawals"
+                ],
+                "description": "List pending withdrawals.",
+                "operationId": "Withdrawals_ListPending",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "currencySymbol",
+                        "in": "query",
+                        "description": "filter by currency",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Withdrawal"
+                            }
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/withdrawals/pending"
+            }
+        },
+        "/withdrawals/{withdrawalId}": {
+            "get": {
+                "tags": [
+                    "Withdrawals"
+                ],
+                "description": "Retrieve information on a specified withdrawal. _(NOT YET IMPLEMENTED)_",
+                "operationId": "Withdrawals_Get",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "withdrawalId",
+                        "in": "path",
+                        "description": "ID of withdrawal to retrieve",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Withdrawal"
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/withdrawals/{withdrawalId}"
+            },
+            "delete": {
+                "tags": [
+                    "Withdrawals"
+                ],
+                "description": "Cancel a withdrawal.",
+                "operationId": "Withdrawals_Delete",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "withdrawalId",
+                        "in": "path",
+                        "description": "ID of withdrawal to cancel",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                },
+                "x-btx-authenticated": true,
+                "x-btx-request-example": "https://api.bittrex.com/v3/withdrawals/{withdrawalId}"
+            }
         }
-      }
     },
-    "/currencies/{symbol}": {
-      "get": {
-        "tags": [
-          "Currencies"
-        ],
-        "description": "Retrieve info on a specified currency.",
-        "operationId": "Currencies_Get",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "symbol",
-            "in": "path",
-            "description": "symbol of the currency to retrieve",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Currency"
+    "definitions": {
+        "Account": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "the account ID associated with this API key / user",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "the email address associated with this API key / user",
+                    "type": "string"
+                }
             }
-          }
+        },
+        "Address": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "description": "the status of this deposit address",
+                    "enum": [
+                        "REQUESTED",
+                        "PROVISIONED"
+                    ],
+                    "type": "string"
+                },
+                "currencySymbol": {
+                    "description": "the unique ID of the currency this deposit address is for",
+                    "type": "string"
+                },
+                "cryptoAddress": {
+                    "description": "the cryptographic deposit address",
+                    "type": "string"
+                }
+            }
+        },
+        "NewAddress": {
+            "required": [
+                "currencySymbol"
+            ],
+            "type": "object",
+            "properties": {
+                "currencySymbol": {
+                    "description": "the currency ID to provision a new address for",
+                    "type": "string"
+                }
+            }
+        },
+        "Balance": {
+            "type": "object",
+            "properties": {
+                "currencySymbol": {
+                    "description": "unique ID for the currency this balance is associated with",
+                    "type": "string"
+                },
+                "total": {
+                    "format": "double",
+                    "description": "total amount",
+                    "type": "number"
+                },
+                "available": {
+                    "format": "double",
+                    "description": "available amount",
+                    "type": "number"
+                }
+            }
+        },
+        "Currency": {
+            "type": "object",
+            "properties": {
+                "symbol": {
+                    "description": "unique symbol for this currency",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "long name of this currency",
+                    "type": "string"
+                },
+                "baseAddress": {
+                    "description": "base address of this currency",
+                    "type": "string"
+                },
+                "coinType": {
+                    "description": "coin type of this currency",
+                    "enum": [
+                        "ADA",
+                        "ANTSHARES",
+                        "BITCOIN",
+                        "BITCOIN_PERCENTAGE_FEE",
+                        "BITCOIN_STEALTH",
+                        "BITSHAREX",
+                        "CRYPTO_NOTE",
+                        "CRYPTO_NOTE_PAYMENTID",
+                        "ETH",
+                        "ETH_CONTRACT",
+                        "FIAT",
+                        "LISK",
+                        "LUMEN",
+                        "NEM",
+                        "NXT",
+                        "NXT_ASSET",
+                        "NXT_MS",
+                        "OMNI",
+                        "RIPPLE",
+                        "STEEM",
+                        "TRON",
+                        "WAVES",
+                        "WAVES_ASSET"
+                    ],
+                    "type": "string"
+                },
+                "isActive": {
+                    "description": "determines whether this currency is currently active",
+                    "type": "boolean"
+                },
+                "isInternational": {
+                    "description": "true if this market is restricted to international users",
+                    "type": "boolean"
+                },
+                "minConfirmations": {
+                    "format": "int32",
+                    "description": "minimum number of confirmations",
+                    "type": "integer"
+                },
+                "notice": {
+                    "description": "news or alerts regarding this currency",
+                    "type": "string"
+                },
+                "txFee": {
+                    "format": "double",
+                    "description": "transaction fee for this currency",
+                    "type": "number"
+                }
+            }
+        },
+        "Deposit": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "uuid",
+                    "description": "unique ID for this deposit",
+                    "type": "string"
+                },
+                "currencySymbol": {
+                    "description": "unique symbol of the currency being deposited to",
+                    "type": "string"
+                },
+                "quantity": {
+                    "format": "double",
+                    "description": "quantity to deposit",
+                    "type": "number"
+                },
+                "address": {
+                    "description": "crypto address for this deposit",
+                    "type": "string"
+                },
+                "txId": {
+                    "description": "TxID for the deposit",
+                    "type": "string"
+                },
+                "confirmations": {
+                    "format": "int32",
+                    "description": "current count of confirmations",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "format": "date-time",
+                    "description": "time stamp when this deposit was initiated",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "format": "date-time",
+                    "description": "time stamp when this deposit was last updated",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "current status of this deposit",
+                    "enum": [
+                        "PENDING",
+                        "COMPLETED",
+                        "ERROR"
+                    ],
+                    "type": "string"
+                }
+            }
+        },
+        "Market": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "unique name for this market",
+                    "type": "string"
+                },
+                "baseCurrencySymbol": {
+                    "description": "unique symbol for base currency",
+                    "type": "string"
+                },
+                "baseCurrencyName": {
+                    "description": "long name for base currency",
+                    "type": "string"
+                },
+                "quoteCurrencySymbol": {
+                    "description": "unique symbol for quote currency",
+                    "type": "string"
+                },
+                "quoteCurrencyName": {
+                    "description": "long name for quote currency",
+                    "type": "string"
+                },
+                "minTradeSize": {
+                    "format": "double",
+                    "description": "minimum trade size",
+                    "type": "number"
+                },
+                "isActive": {
+                    "description": "true if this market is currently active",
+                    "type": "boolean"
+                },
+                "isInternational": {
+                    "description": "true if this market is restricted to international users",
+                    "type": "boolean"
+                },
+                "createdAt": {
+                    "format": "date-time",
+                    "description": "timestamp in UTC when this market was created",
+                    "type": "string"
+                },
+                "notice": {
+                    "description": "notice or alert info",
+                    "type": "string"
+                },
+                "isSponsored": {
+                    "description": "true if this market is sponsored",
+                    "type": "boolean"
+                },
+                "logoUrl": {
+                    "description": "logo URL",
+                    "type": "string"
+                },
+                "summary": {
+                    "$ref": "#/definitions/MarketSummary",
+                    "description": "summary information for this market"
+                }
+            }
+        },
+        "MarketSummary": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "unique name for this market",
+                    "type": "string"
+                },
+                "high": {
+                    "format": "double",
+                    "description": "high",
+                    "type": "number"
+                },
+                "low": {
+                    "format": "double",
+                    "description": "low",
+                    "type": "number"
+                },
+                "volume": {
+                    "format": "double",
+                    "description": "volume",
+                    "type": "number"
+                },
+                "last": {
+                    "format": "double",
+                    "description": "last",
+                    "type": "number"
+                },
+                "baseVolume": {
+                    "format": "double",
+                    "description": "base volume",
+                    "type": "number"
+                },
+                "bid": {
+                    "format": "double",
+                    "description": "bid",
+                    "type": "number"
+                },
+                "ask": {
+                    "format": "double",
+                    "description": "ask",
+                    "type": "number"
+                },
+                "openBuyOrders": {
+                    "format": "int32",
+                    "description": "count of open buy orders",
+                    "type": "integer"
+                },
+                "openSellOrders": {
+                    "format": "int32",
+                    "description": "count of open sell orders",
+                    "type": "integer"
+                },
+                "previousDay": {
+                    "format": "double",
+                    "description": "previous day",
+                    "type": "number"
+                },
+                "updatedAt": {
+                    "format": "date-time",
+                    "description": "timestamp in UTC when market summary was last updated",
+                    "type": "string"
+                }
+            }
+        },
+        "OrderBook": {
+            "type": "object",
+            "properties": {
+                "buy": {
+                    "description": "buy entries",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/OrderBookEntry"
+                    }
+                },
+                "sell": {
+                    "description": "sell entries",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/OrderBookEntry"
+                    }
+                }
+            }
+        },
+        "OrderBookEntry": {
+            "type": "object",
+            "properties": {
+                "orderDirection": {
+                    "description": "order direction",
+                    "enum": [
+                        "BUY",
+                        "SELL"
+                    ],
+                    "type": "string"
+                },
+                "orderType": {
+                    "description": "order type",
+                    "enum": [
+                        "LIMIT",
+                        "MARKET"
+                    ],
+                    "type": "string"
+                },
+                "quantity": {
+                    "format": "double",
+                    "description": "quantity",
+                    "type": "number"
+                },
+                "rate": {
+                    "format": "double",
+                    "description": "rate",
+                    "type": "number"
+                }
+            }
+        },
+        "HistoryEntry": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int32",
+                    "description": "unique ID for the order",
+                    "type": "integer"
+                },
+                "filledAt": {
+                    "format": "date-time",
+                    "description": "timestamp in UTC when order was filled",
+                    "type": "string"
+                },
+                "quantity": {
+                    "format": "double",
+                    "description": "quantity",
+                    "type": "number"
+                },
+                "price": {
+                    "format": "double",
+                    "description": "price",
+                    "type": "number"
+                },
+                "fillType": {
+                    "description": "fill type",
+                    "enum": [
+                        "OPEN",
+                        "PARTIAL_FILL",
+                        "FILL"
+                    ],
+                    "type": "string"
+                },
+                "orderDirection": {
+                    "description": "direction of order",
+                    "enum": [
+                        "BUY",
+                        "SELL"
+                    ],
+                    "type": "string"
+                }
+            }
+        },
+        "Tick": {
+            "type": "object",
+            "properties": {
+                "t": {
+                    "format": "date-time",
+                    "description": "time stamp of tick in UTC",
+                    "type": "string"
+                },
+                "o": {
+                    "format": "double",
+                    "description": "open",
+                    "type": "number"
+                },
+                "h": {
+                    "format": "double",
+                    "description": "high",
+                    "type": "number"
+                },
+                "l": {
+                    "format": "double",
+                    "description": "low",
+                    "type": "number"
+                },
+                "c": {
+                    "format": "double",
+                    "description": "close",
+                    "type": "number"
+                },
+                "v": {
+                    "format": "double",
+                    "description": "volume",
+                    "type": "number"
+                },
+                "bv": {
+                    "format": "double",
+                    "description": "base volume",
+                    "type": "number"
+                }
+            }
+        },
+        "PaginationParameters": {
+            "type": "object",
+            "properties": {
+                "pageSize": {
+                    "format": "int32",
+                    "description": "number of items per page (default 100, max 200)",
+                    "type": "integer"
+                },
+                "pageNumber": {
+                    "format": "int32",
+                    "description": "page number to retrieve",
+                    "type": "integer"
+                }
+            }
+        },
+        "Order": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "uuid",
+                    "description": "unique ID of this order",
+                    "type": "string"
+                },
+                "marketName": {
+                    "description": "unique name of the market this order is being placed on",
+                    "type": "string"
+                },
+                "direction": {
+                    "description": "order direction",
+                    "enum": [
+                        "BUY",
+                        "SELL"
+                    ],
+                    "type": "string"
+                },
+                "type": {
+                    "description": "order type",
+                    "enum": [
+                        "LIMIT",
+                        "MARKET"
+                    ],
+                    "type": "string"
+                },
+                "quantity": {
+                    "format": "double",
+                    "description": "quantity",
+                    "type": "number"
+                },
+                "limit": {
+                    "format": "double",
+                    "description": "limit price, if present",
+                    "type": "number"
+                },
+                "timeInForce": {
+                    "description": "time in force",
+                    "enum": [
+                        "GOOD_TIL_CANCELLED",
+                        "IMMEDIATE_OR_CANCEL",
+                        "FILL_OR_KILL"
+                    ],
+                    "type": "string"
+                },
+                "trigger": {
+                    "description": "trigger specification, if present",
+                    "enum": [
+                        "GREATER_THAN",
+                        "LESS_THAN",
+                        "STOP_LOSS_FIXED",
+                        "STOP_LOSS_PERCENTAGE"
+                    ],
+                    "type": "string"
+                },
+                "triggerTargetPrice": {
+                    "format": "double",
+                    "description": "if trigger (price-related) is present, target price for that trigger",
+                    "type": "number"
+                },
+                "fillQuantity": {
+                    "format": "double",
+                    "description": "fill quantity",
+                    "type": "number"
+                },
+                "commission": {
+                    "format": "double",
+                    "description": "commission",
+                    "type": "number"
+                },
+                "price": {
+                    "format": "double",
+                    "description": "price",
+                    "type": "number"
+                },
+                "status": {
+                    "description": "order status",
+                    "enum": [
+                        "OPEN",
+                        "FILLED",
+                        "CANCELLED"
+                    ],
+                    "type": "string"
+                },
+                "createdAt": {
+                    "format": "date-time",
+                    "description": "timestamp (UTC) of order creation",
+                    "type": "string"
+                },
+                "closedAt": {
+                    "format": "date-time",
+                    "description": "timestamp (UTC) when this order was closed",
+                    "type": "string"
+                }
+            }
+        },
+        "NewOrder": {
+            "required": [
+                "marketName",
+                "direction",
+                "type",
+                "quantity"
+            ],
+            "type": "object",
+            "properties": {
+                "marketName": {
+                    "description": "unique name of the market this order is being placed on",
+                    "type": "string"
+                },
+                "direction": {
+                    "description": "order direction",
+                    "enum": [
+                        "BUY",
+                        "SELL"
+                    ],
+                    "type": "string"
+                },
+                "type": {
+                    "description": "order type",
+                    "enum": [
+                        "LIMIT",
+                        "MARKET"
+                    ],
+                    "type": "string"
+                },
+                "quantity": {
+                    "format": "double",
+                    "description": "quantity",
+                    "type": "number"
+                },
+                "limit": {
+                    "format": "double",
+                    "description": "limit, if present",
+                    "type": "number"
+                },
+                "timeInForce": {
+                    "description": "time in force",
+                    "enum": [
+                        "GOOD_TIL_CANCELLED",
+                        "IMMEDIATE_OR_CANCEL",
+                        "FILL_OR_KILL"
+                    ],
+                    "type": "string"
+                },
+                "trigger": {
+                    "description": "trigger specification, if present",
+                    "enum": [
+                        "GREATER_THAN",
+                        "LESS_THAN",
+                        "STOP_LOSS_FIXED",
+                        "STOP_LOSS_PERCENTAGE"
+                    ],
+                    "type": "string"
+                },
+                "triggerTargetPrice": {
+                    "format": "double",
+                    "description": "if trigger (price-related) is present, target price for that trigger",
+                    "type": "number"
+                },
+                "clientId": {
+                    "format": "uuid",
+                    "description": "client-provided identifier for advanced order tracking (NYI)",
+                    "type": "string"
+                }
+            }
+        },
+        "ServiceStatus": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "description": "overall service status",
+                    "enum": [
+                        "GREEN",
+                        "YELLOW",
+                        "RED"
+                    ],
+                    "type": "string"
+                },
+                "serverTime": {
+                    "format": "int64",
+                    "description": "server time in epoch millisecond format",
+                    "type": "integer"
+                }
+            }
+        },
+        "Subaccount": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "uuid",
+                    "description": "unique ID of this subaccount",
+                    "type": "string"
+                }
+            }
+        },
+        "NewSubaccount": {
+            "type": "object",
+            "properties": {}
+        },
+        "Withdrawal": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "uuid",
+                    "description": "unique ID for this withdrawal",
+                    "type": "string"
+                },
+                "currencySymbol": {
+                    "description": "unique symbol of currency to withdraw",
+                    "type": "string"
+                },
+                "quantity": {
+                    "format": "double",
+                    "description": "quantity to withdraw",
+                    "type": "number"
+                },
+                "address": {
+                    "description": "crypto address for this withdrawal",
+                    "type": "string"
+                },
+                "txCost": {
+                    "format": "double",
+                    "description": "TxCost of this withdrawal",
+                    "type": "number"
+                },
+                "txId": {
+                    "description": "TxID associated with this withdrawal",
+                    "type": "string"
+                },
+                "isAuthorized": {
+                    "description": "true if this deposit has been authorized",
+                    "type": "boolean"
+                },
+                "hasInvalidAddress": {
+                    "description": "true if this withdrawal has an invalid target crypto address",
+                    "type": "boolean"
+                },
+                "status": {
+                    "description": "current status of this withdrawal",
+                    "enum": [
+                        "PENDING",
+                        "COMPLETED",
+                        "CANCELLED",
+                        "ERROR"
+                    ],
+                    "type": "string"
+                },
+                "createdAt": {
+                    "format": "date-time",
+                    "description": "time stamp when this withdrawal was initiated",
+                    "type": "string"
+                },
+                "completedAt": {
+                    "format": "date-time",
+                    "description": "time stamp when this withdrawal was completed",
+                    "type": "string"
+                }
+            }
+        },
+        "NewWithdrawal": {
+            "required": [
+                "currencySymbol",
+                "quantity",
+                "address"
+            ],
+            "type": "object",
+            "properties": {
+                "currencySymbol": {
+                    "description": "unique symbol of the currency to withdraw from",
+                    "type": "string"
+                },
+                "quantity": {
+                    "format": "double",
+                    "description": "quantity to withdraw",
+                    "type": "number"
+                },
+                "address": {
+                    "description": "crypto address to withdraw funds to",
+                    "type": "string"
+                },
+                "message": {
+                    "description": "custom message (optional, depends on the currency being withdrawn)",
+                    "type": "string"
+                }
+            }
         }
-      }
     },
-    "/deposits": {
-      "get": {
-        "tags": [
-          "Deposits"
-        ],
-        "description": "List historical deposits.",
-        "operationId": "Deposits_List",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "status",
-            "in": "query",
-            "description": "filter by deposit status (PENDING not allowed, use /deposits/pending to list pending deposits)",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "PENDING",
-              "COMPLETED",
-              "ERROR"
-            ]
-          },
-          {
-            "name": "currencySymbol",
-            "in": "query",
-            "description": "filter by currency",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Deposit"
-              }
-            }
-          }
+    "x-spectacle-topics": {
+        "Availability": {
+            "description": "The V3-Alpha API is available on an invite-only basis at this time. Later releases will be made publicly available to the community."
         },
-        "x-btx-authenticated": true
-      }
-    },
-    "/deposits/pending": {
-      "get": {
-        "tags": [
-          "Deposits"
-        ],
-        "description": "List pending deposits.",
-        "operationId": "Deposits_ListPending",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "currencySymbol",
-            "in": "query",
-            "description": "filter by currency",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Deposit"
-              }
-            }
-          }
+        "Pre-Release Warning": {
+            "description": "> **Warning**: The V3-Alpha or other pre-release API versions are not for production use.\n\n The V3-Alpha release will be subject to breaking changes, potentially without notice, until the final API is released. Pre-release APIs should only be used for testing and review.\n\nThe V3-Alpha API will operate against production (live-site) data and accounts and we recommend using test accounts and small-value transactions to validate your implementation.\n\nBy using the V3-Alpha API you understand and agree that issues may be encountered without warning, affecting your use of the website and API. Bittrex provides no warranties, either express or implied, as to the suitability or usability of pre-release APIs. Bittrex will not be liable for any loss, whether such loss is direct, indirect, special or consequential, suffered by any party as a result of their use of the V3-Alpha API or other pre-release APIs. "
         },
-        "x-btx-authenticated": true
-      }
-    },
-    "/deposits/{depositId}": {
-      "get": {
-        "tags": [
-          "Deposits"
-        ],
-        "description": "Retrieve information for a specific deposit. _(NOT YET IMPLEMENTED)_",
-        "operationId": "Deposits_Get",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "depositId",
-            "in": "path",
-            "description": "ID of the deposit to retrieve",
-            "required": true,
-            "type": "string",
-            "format": "uuid"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Deposit"
-            }
-          }
+        "Getting Started": {
+            "description": "Keep the following in mind when developing against the Bittrex API: \n - Enable 2FA on your account. API Keys cannot be generated unless 2FA is enabled.\n - All REST requests must be sent to `https://api.bittrex.com/v3` using the `application/json` content type. Non-HTTPS requests will be redirected to HTTPS, possibly causing functional or performance issues with your application."
         },
-        "x-btx-authenticated": true
-      }
-    },
-    "/markets": {
-      "get": {
-        "tags": [
-          "Markets"
-        ],
-        "description": "List markets with optional summary information.",
-        "operationId": "Markets_List",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "includeSummary",
-            "in": "query",
-            "description": "Include market summary information in results.",
-            "required": false,
-            "type": "boolean"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Market"
-              }
-            }
-          }
+        "Best Practices": {
+            "description": "### Call Limits\n The Bittrex API employs call limits on all endpoints to ensure the efficiency and availability of the platform for all customers. In general, API users are permitted to make a maximum of 60 API calls per minute. Calls after the limit will fail, with the limit resetting at the start of the next minute.\n\n __Note: Corporate and high-volume accounts may contact customer support for additional information to ensure that they may continue operating at an optimal level.__"
         }
-      }
     },
-    "/markets/{marketName}": {
-      "get": {
-        "tags": [
-          "Markets"
-        ],
-        "description": "Retrieve information for a specific market.",
-        "operationId": "Markets_Get",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "marketName",
-            "in": "path",
-            "description": "name of market to retrieve",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "includeSummary",
-            "in": "query",
-            "description": "Include market summary information in results.",
-            "required": false,
-            "type": "boolean"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Market"
-            }
-          }
+    "securityDefinitions": {
+        "api_key": {
+            "description": "### Overview\n In order to properly sign an authenticated request for the Bittrex v3 API, the following headers must be included:\n\n- `Api-Key`\n\n- `Api-Timestamp`\n\n- `Api-Content-Hash`\n\n- `Api-Signature`\n\n\nThe following sections are instructions for properly populating these headers.\n\n---\n #### Api-Key\nPopulate this header with your API key.\n\nExample Value:\n\n`4894xxxxxxxx407e827d05xxxxxxxxxx`\n\n---\n #### Api-Timestamp\nPopulate this header with the current time as a UNIX timestamp, in epoch-millisecond format.\n\nSample JS Code Snippet:\n\n``` javascript\nvar timestamp = new Date().getTime();\n```\n\nExample Value:\n\n`1542323450016`\n\n---\n #### Api-Content-Hash\nPopulate this header with a SHA512 hash of the request contents, ASCII-encoded. If there are no request contents, populate this header with a SHA512 hash of an empty string.\n\nSample JS Code Snippet:\n\n``` javascript\nvar contentHash = CryptoJS.SHA512(content).toString(CryptoJS.enc.ASCII);\n```\n\nExample Value:\n\n``` markdown\ncf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e\n```\n\n---\n#### Api-Signature\nCreate a pre-sign string formed from the following items and concatenating them together:\n1. contents of your `Api-Timestamp` header\n2. the full URI you are using to make the request (including query string)\n3. contents of your `Api-Content-Hash` header\n\n\nOnce you have created this pre-sign string, sign it via HMACSHA512, using your API secret as the signing secret. ASCII-encode the result of this operation and populate the Api-Signature header with it.\n\n\nSample JS Code Snippet:\n\n``` javascript\nvar uri = 'https://api.bittrex.com/v3/balances';\nvar preSign = [timestamp, uri, contentHash].join('');\nvar signature = CryptoJS.HmacSHA512(preSign, apiSecret).toString(CryptoJS.enc.ASCII);\n```\n\nExample Pre-Signed Value:\n\n``` markdown\n1542323450016https://api.bittrex.com/v3/balancescf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e\n```\n\nExample Post-Signed Value:\n\n``` markdown\n939047623f0efbe10bfbb32f18e5d8885b2a91be3c3cea82adf0dd2d20892b20bcb6a10a91fec3afcedcc009f2b2a86c5366974cfadcf671fe0490582568f51f\n```\n\n---\n #### Api-Subaccount-Id\n_(NOTE: This functionality is limited to partners and unavailable to general traders.)_\n\nIf you wish to make a request on behalf of a subaccount, you will need to:\n\n1. Authenticate using all 4 of the headers above referring to your master account.\n1. Populate the `Api-Subaccount-Id` header with the Guid of the subaccount you wish to impersonate for this request. The specified subaccount *must* be a subaccount of the master account used to authenticate the request.\n\nExample Value:\n\n``` markdown\n x111x11x-8968-48ac-b956-x1x11x111111\n```\n\n---\n"
         }
-      }
-    },
-    "/markets/{marketName}/orderbook": {
-      "get": {
-        "tags": [
-          "Markets"
-        ],
-        "description": "Retrieve the order book for a specific market.",
-        "operationId": "Markets_GetOrderBook",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "marketName",
-            "in": "path",
-            "description": "name of market to retrieve order book for",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "depth",
-            "in": "query",
-            "description": "depth of order book to return",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "direction",
-            "in": "query",
-            "description": "filter results based on order direction (buy or sell)",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "BUY",
-              "SELL"
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/OrderBook"
-            }
-          }
-        }
-      }
-    },
-    "/markets/{marketName}/history": {
-      "get": {
-        "tags": [
-          "Markets"
-        ],
-        "description": "Retrieve the order history for a specific market.",
-        "operationId": "Markets_GetHistory",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "marketName",
-            "in": "path",
-            "description": "name of market to retrieve history for",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/HistoryEntry"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/markets/{marketName}/ticks": {
-      "get": {
-        "tags": [
-          "Markets"
-        ],
-        "description": "Retrieve ticks for a specific market.",
-        "operationId": "Markets_GetTicks",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "marketName",
-            "in": "path",
-            "description": "name of market to retrieve ticks for",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "tickInterval",
-            "in": "query",
-            "description": "desired time interval between ticks",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "MINUTE_1",
-              "MINUTE_5",
-              "MINUTE_30",
-              "HOUR_1",
-              "DAY_1"
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Tick"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/orders": {
-      "get": {
-        "tags": [
-          "Orders"
-        ],
-        "description": "List historical orders.",
-        "operationId": "Orders_List",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "status",
-            "in": "query",
-            "description": "filter by order status (OPEN not allowed, use /orders/open to list open orders",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "OPEN",
-              "FILLED",
-              "CANCELLED"
-            ]
-          },
-          {
-            "name": "marketId",
-            "in": "query",
-            "description": "filter by market ID",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "description": "number of items per page (default 100, max 200)",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "pageNumber",
-            "in": "query",
-            "description": "page number to retrieve",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Order"
-              }
-            }
-          }
-        },
-        "x-btx-authenticated": true
-      },
-      "post": {
-        "tags": [
-          "Orders"
-        ],
-        "description": "Create a new order.",
-        "operationId": "Orders_Create",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "newOrder",
-            "in": "body",
-            "description": "information specifying the order to create",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/NewOrder"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Order"
-            }
-          }
-        },
-        "x-btx-authenticated": true
-      }
-    },
-    "/orders/open": {
-      "get": {
-        "tags": [
-          "Orders"
-        ],
-        "description": "List open orders.",
-        "operationId": "Orders_ListOpen",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "marketId",
-            "in": "query",
-            "description": "filter by market ID",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Order"
-              }
-            }
-          }
-        },
-        "x-btx-authenticated": true
-      }
-    },
-    "/orders/{orderId}": {
-      "get": {
-        "tags": [
-          "Orders"
-        ],
-        "description": "Retrieve information on a specific order.",
-        "operationId": "Orders_Get",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "orderId",
-            "in": "path",
-            "description": "ID of order to retrieve",
-            "required": true,
-            "type": "string",
-            "format": "uuid"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Order"
-            }
-          }
-        },
-        "x-btx-authenticated": true
-      },
-      "delete": {
-        "tags": [
-          "Orders"
-        ],
-        "description": "Cancel an order.",
-        "operationId": "Orders_Delete",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "orderId",
-            "in": "path",
-            "description": "ID of order to cancel",
-            "required": true,
-            "type": "string",
-            "format": "uuid"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object"
-            }
-          }
-        },
-        "x-btx-authenticated": true
-      }
-    },
-    "/status": {
-      "get": {
-        "tags": [
-          "Status"
-        ],
-        "description": "Check service status.",
-        "operationId": "Status_Get",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ServiceStatus"
-            }
-          }
-        }
-      }
-    },
-    "/subaccounts": {
-      "get": {
-        "tags": [
-          "Subaccounts"
-        ],
-        "description": "List subaccounts. (NOT YET IMPLEMENTED)",
-        "operationId": "Subaccounts_List",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "pageSize",
-            "in": "query",
-            "description": "number of items per page (default 100, max 200)",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "pageNumber",
-            "in": "query",
-            "description": "page number to retrieve",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Subaccount"
-              }
-            }
-          }
-        },
-        "x-btx-authenticated": true
-      },
-      "post": {
-        "tags": [
-          "Subaccounts"
-        ],
-        "description": "Create a new subaccount. _(NOTE: This API is limited to partners and not available for traders.)_",
-        "operationId": "Subaccounts_Create",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "newSubaccount",
-            "in": "body",
-            "description": "information specifying the subaccount to create",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/NewSubaccount"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Subaccount"
-            }
-          }
-        },
-        "x-btx-authenticated": true
-      }
-    },
-    "/subaccounts/{subaccountId}": {
-      "get": {
-        "tags": [
-          "Subaccounts"
-        ],
-        "description": "Retrieve details for a specified subaccount. _(NOT YET IMPLEMENTED)_",
-        "operationId": "Subaccounts_Get",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "subaccountId",
-            "in": "path",
-            "description": "ID of the subaccount to retrieve details for",
-            "required": true,
-            "type": "string",
-            "format": "uuid"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Subaccount"
-            }
-          }
-        },
-        "x-btx-authenticated": true
-      }
-    },
-    "/withdrawals": {
-      "get": {
-        "tags": [
-          "Withdrawals"
-        ],
-        "description": "List historical withdrawals.",
-        "operationId": "Withdrawals_List",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "status",
-            "in": "query",
-            "description": "filter by withdrawal status (PENDING not allowed, use /withdrawals/pending to list pending withdrawals)",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "PENDING",
-              "COMPLETED",
-              "CANCELLED",
-              "ERROR"
-            ]
-          },
-          {
-            "name": "currencySymbol",
-            "in": "query",
-            "description": "filter by currency",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Withdrawal"
-              }
-            }
-          }
-        },
-        "x-btx-authenticated": true
-      },
-      "post": {
-        "tags": [
-          "Withdrawals"
-        ],
-        "description": "Create a new withdrawal.",
-        "operationId": "Withdrawals_Create",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "newWithdrawal",
-            "in": "body",
-            "description": "information specifying the withdrawal to create",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/NewWithdrawal"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Withdrawal"
-            }
-          }
-        },
-        "x-btx-authenticated": true
-      }
-    },
-    "/withdrawals/pending": {
-      "get": {
-        "tags": [
-          "Withdrawals"
-        ],
-        "description": "List pending withdrawals.",
-        "operationId": "Withdrawals_ListPending",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "currencySymbol",
-            "in": "query",
-            "description": "filter by currency",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Withdrawal"
-              }
-            }
-          }
-        },
-        "x-btx-authenticated": true
-      }
-    },
-    "/withdrawals/{withdrawalId}": {
-      "get": {
-        "tags": [
-          "Withdrawals"
-        ],
-        "description": "Retrieve information on a specified withdrawal. _(NOT YET IMPLEMENTED)_",
-        "operationId": "Withdrawals_Get",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "withdrawalId",
-            "in": "path",
-            "description": "ID of withdrawal to retrieve",
-            "required": true,
-            "type": "string",
-            "format": "uuid"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Withdrawal"
-            }
-          }
-        },
-        "x-btx-authenticated": true
-      },
-      "delete": {
-        "tags": [
-          "Withdrawals"
-        ],
-        "description": "Cancel a withdrawal.",
-        "operationId": "Withdrawals_Delete",
-        "consumes": [],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "withdrawalId",
-            "in": "path",
-            "description": "ID of withdrawal to cancel",
-            "required": true,
-            "type": "string",
-            "format": "uuid"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object"
-            }
-          }
-        },
-        "x-btx-authenticated": true
-      }
     }
-  },
-  "definitions": {
-    "Account": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "description": "the account ID associated with this API key / user",
-          "type": "string"
-        },
-        "email": {
-          "description": "the email address associated with this API key / user",
-          "type": "string"
-        }
-      }
-    },
-    "Address": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "description": "the status of this deposit address",
-          "enum": [
-            "REQUESTED",
-            "PROVISIONED"
-          ],
-          "type": "string"
-        },
-        "currencySymbol": {
-          "description": "the unique ID of the currency this deposit address is for",
-          "type": "string"
-        },
-        "cryptoAddress": {
-          "description": "the cryptographic deposit address",
-          "type": "string"
-        }
-      }
-    },
-    "NewAddress": {
-      "required": [
-        "currencySymbol"
-      ],
-      "type": "object",
-      "properties": {
-        "currencySymbol": {
-          "description": "the currency ID to provision a new address for",
-          "type": "string"
-        }
-      }
-    },
-    "Balance": {
-      "type": "object",
-      "properties": {
-        "currencySymbol": {
-          "description": "unique ID for the currency this balance is associated with",
-          "type": "string"
-        },
-        "total": {
-          "format": "double",
-          "description": "total amount",
-          "type": "number"
-        },
-        "available": {
-          "format": "double",
-          "description": "available amount",
-          "type": "number"
-        }
-      }
-    },
-    "Currency": {
-      "type": "object",
-      "properties": {
-        "symbol": {
-          "description": "unique symbol for this currency",
-          "type": "string"
-        },
-        "name": {
-          "description": "long name of this currency",
-          "type": "string"
-        },
-        "baseAddress": {
-          "description": "base address of this currency",
-          "type": "string"
-        },
-        "coinType": {
-          "description": "coin type of this currency",
-          "enum": [
-            "ADA",
-            "ANTSHARES",
-            "BITCOIN",
-            "BITCOIN_PERCENTAGE_FEE",
-            "BITCOIN_STEALTH",
-            "BITSHAREX",
-            "CRYPTO_NOTE",
-            "CRYPTO_NOTE_PAYMENTID",
-            "ETH",
-            "ETH_CONTRACT",
-            "FIAT",
-            "LISK",
-            "LUMEN",
-            "NEM",
-            "NXT",
-            "NXT_ASSET",
-            "NXT_MS",
-            "OMNI",
-            "RIPPLE",
-            "STEEM",
-            "TRON",
-            "WAVES",
-            "WAVES_ASSET"
-          ],
-          "type": "string"
-        },
-        "isActive": {
-          "description": "determines whether this currency is currently active",
-          "type": "boolean"
-        },
-        "isInternational": {
-          "description": "true if this market is restricted to international users",
-          "type": "boolean"
-        },
-        "minConfirmations": {
-          "format": "int32",
-          "description": "minimum number of confirmations",
-          "type": "integer"
-        },
-        "notice": {
-          "description": "news or alerts regarding this currency",
-          "type": "string"
-        },
-        "txFee": {
-          "format": "double",
-          "description": "transaction fee for this currency",
-          "type": "number"
-        }
-      }
-    },
-    "Deposit": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "format": "uuid",
-          "description": "unique ID for this deposit",
-          "type": "string",
-          "example": "00000000-0000-0000-0000-000000000000"
-        },
-        "currencySymbol": {
-          "description": "unique symbol of the currency being deposited to",
-          "type": "string"
-        },
-        "quantity": {
-          "format": "double",
-          "description": "quantity to deposit",
-          "type": "number"
-        },
-        "address": {
-          "description": "crypto address for this deposit",
-          "type": "string"
-        },
-        "txId": {
-          "description": "TxID for the deposit",
-          "type": "string"
-        },
-        "confirmations": {
-          "format": "int32",
-          "description": "current count of confirmations",
-          "type": "integer"
-        },
-        "createdAt": {
-          "format": "date-time",
-          "description": "time stamp when this deposit was initiated",
-          "type": "string"
-        },
-        "updatedAt": {
-          "format": "date-time",
-          "description": "time stamp when this deposit was last updated",
-          "type": "string"
-        },
-        "status": {
-          "description": "current status of this deposit",
-          "enum": [
-            "PENDING",
-            "COMPLETED",
-            "ERROR"
-          ],
-          "type": "string"
-        }
-      }
-    },
-    "Market": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "description": "unique name for this market",
-          "type": "string"
-        },
-        "baseCurrencySymbol": {
-          "description": "unique symbol for base currency",
-          "type": "string"
-        },
-        "baseCurrencyName": {
-          "description": "long name for base currency",
-          "type": "string"
-        },
-        "quoteCurrencySymbol": {
-          "description": "unique symbol for quote currency",
-          "type": "string"
-        },
-        "quoteCurrencyName": {
-          "description": "long name for quote currency",
-          "type": "string"
-        },
-        "minTradeSize": {
-          "format": "double",
-          "description": "minimum trade size",
-          "type": "number"
-        },
-        "isActive": {
-          "description": "true if this market is currently active",
-          "type": "boolean"
-        },
-        "isInternational": {
-          "description": "true if this market is restricted to international users",
-          "type": "boolean"
-        },
-        "createdAt": {
-          "format": "date-time",
-          "description": "timestamp in UTC when this market was created",
-          "type": "string"
-        },
-        "notice": {
-          "description": "notice or alert info",
-          "type": "string"
-        },
-        "isSponsored": {
-          "description": "true if this market is sponsored",
-          "type": "boolean"
-        },
-        "logoUrl": {
-          "description": "logo URL",
-          "type": "string"
-        },
-        "summary": {
-          "$ref": "#/definitions/MarketSummary",
-          "description": "summary information for this market"
-        }
-      }
-    },
-    "MarketSummary": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "description": "unique name for this market",
-          "type": "string"
-        },
-        "high": {
-          "format": "double",
-          "description": "high",
-          "type": "number"
-        },
-        "low": {
-          "format": "double",
-          "description": "low",
-          "type": "number"
-        },
-        "volume": {
-          "format": "double",
-          "description": "volume",
-          "type": "number"
-        },
-        "last": {
-          "format": "double",
-          "description": "last",
-          "type": "number"
-        },
-        "baseVolume": {
-          "format": "double",
-          "description": "base volume",
-          "type": "number"
-        },
-        "bid": {
-          "format": "double",
-          "description": "bid",
-          "type": "number"
-        },
-        "ask": {
-          "format": "double",
-          "description": "ask",
-          "type": "number"
-        },
-        "openBuyOrders": {
-          "format": "int32",
-          "description": "count of open buy orders",
-          "type": "integer"
-        },
-        "openSellOrders": {
-          "format": "int32",
-          "description": "count of open sell orders",
-          "type": "integer"
-        },
-        "previousDay": {
-          "format": "double",
-          "description": "previous day",
-          "type": "number"
-        },
-        "updatedAt": {
-          "format": "date-time",
-          "description": "timestamp in UTC when market summary was last updated",
-          "type": "string"
-        }
-      }
-    },
-    "OrderBook": {
-      "type": "object",
-      "properties": {
-        "buy": {
-          "description": "buy entries",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/OrderBookEntry"
-          }
-        },
-        "sell": {
-          "description": "sell entries",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/OrderBookEntry"
-          }
-        }
-      }
-    },
-    "OrderBookEntry": {
-      "type": "object",
-      "properties": {
-        "orderDirection": {
-          "description": "order direction",
-          "enum": [
-            "BUY",
-            "SELL"
-          ],
-          "type": "string"
-        },
-        "orderType": {
-          "description": "order type",
-          "enum": [
-            "LIMIT",
-            "MARKET"
-          ],
-          "type": "string"
-        },
-        "quantity": {
-          "format": "double",
-          "description": "quantity",
-          "type": "number"
-        },
-        "rate": {
-          "format": "double",
-          "description": "rate",
-          "type": "number"
-        }
-      }
-    },
-    "HistoryEntry": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "format": "int32",
-          "description": "unique ID for the order",
-          "type": "integer"
-        },
-        "filledAt": {
-          "format": "date-time",
-          "description": "timestamp in UTC when order was filled",
-          "type": "string"
-        },
-        "quantity": {
-          "format": "double",
-          "description": "quantity",
-          "type": "number"
-        },
-        "price": {
-          "format": "double",
-          "description": "price",
-          "type": "number"
-        },
-        "fillType": {
-          "description": "fill type",
-          "enum": [
-            "OPEN",
-            "PARTIAL_FILL",
-            "FILL"
-          ],
-          "type": "string"
-        },
-        "orderDirection": {
-          "description": "direction of order",
-          "enum": [
-            "BUY",
-            "SELL"
-          ],
-          "type": "string"
-        }
-      }
-    },
-    "Tick": {
-      "type": "object",
-      "properties": {
-        "t": {
-          "format": "date-time",
-          "description": "time stamp of tick in UTC",
-          "type": "string"
-        },
-        "o": {
-          "format": "double",
-          "description": "open",
-          "type": "number"
-        },
-        "h": {
-          "format": "double",
-          "description": "high",
-          "type": "number"
-        },
-        "l": {
-          "format": "double",
-          "description": "low",
-          "type": "number"
-        },
-        "c": {
-          "format": "double",
-          "description": "close",
-          "type": "number"
-        },
-        "v": {
-          "format": "double",
-          "description": "volume",
-          "type": "number"
-        },
-        "bv": {
-          "format": "double",
-          "description": "base volume",
-          "type": "number"
-        }
-      }
-    },
-    "PaginationParameters": {
-      "type": "object",
-      "properties": {
-        "pageSize": {
-          "format": "int32",
-          "description": "number of items per page (default 100, max 200)",
-          "type": "integer"
-        },
-        "pageNumber": {
-          "format": "int32",
-          "description": "page number to retrieve",
-          "type": "integer"
-        }
-      }
-    },
-    "Order": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "format": "uuid",
-          "description": "unique ID of this order",
-          "type": "string",
-          "example": "00000000-0000-0000-0000-000000000000"
-        },
-        "marketName": {
-          "description": "unique name of the market this order is being placed on",
-          "type": "string"
-        },
-        "direction": {
-          "description": "order direction",
-          "enum": [
-            "BUY",
-            "SELL"
-          ],
-          "type": "string"
-        },
-        "type": {
-          "description": "order type",
-          "enum": [
-            "LIMIT",
-            "MARKET"
-          ],
-          "type": "string"
-        },
-        "quantity": {
-          "format": "double",
-          "description": "quantity",
-          "type": "number"
-        },
-        "limit": {
-          "format": "double",
-          "description": "limit price, if present",
-          "type": "number"
-        },
-        "timeInForce": {
-          "description": "time in force",
-          "enum": [
-            "GOOD_TIL_CANCELLED",
-            "IMMEDIATE_OR_CANCEL",
-            "FILL_OR_KILL"
-          ],
-          "type": "string"
-        },
-        "trigger": {
-          "description": "trigger specification, if present",
-          "enum": [
-            "GREATER_THAN",
-            "LESS_THAN",
-            "STOP_LOSS_FIXED",
-            "STOP_LOSS_PERCENTAGE"
-          ],
-          "type": "string"
-        },
-        "triggerTargetPrice": {
-          "format": "double",
-          "description": "if trigger (price-related) is present, target price for that trigger",
-          "type": "number"
-        },
-        "fillQuantity": {
-          "format": "double",
-          "description": "fill quantity",
-          "type": "number"
-        },
-        "commission": {
-          "format": "double",
-          "description": "commission",
-          "type": "number"
-        },
-        "price": {
-          "format": "double",
-          "description": "price",
-          "type": "number"
-        },
-        "status": {
-          "description": "order status",
-          "enum": [
-            "OPEN",
-            "FILLED",
-            "CANCELLED"
-          ],
-          "type": "string"
-        },
-        "createdAt": {
-          "format": "date-time",
-          "description": "timestamp (UTC) of order creation",
-          "type": "string"
-        },
-        "closedAt": {
-          "format": "date-time",
-          "description": "timestamp (UTC) when this order was closed",
-          "type": "string"
-        }
-      }
-    },
-    "NewOrder": {
-      "required": [
-        "marketName",
-        "direction",
-        "type",
-        "quantity"
-      ],
-      "type": "object",
-      "properties": {
-        "marketName": {
-          "description": "unique name of the market this order is being placed on",
-          "type": "string"
-        },
-        "direction": {
-          "description": "order direction",
-          "enum": [
-            "BUY",
-            "SELL"
-          ],
-          "type": "string"
-        },
-        "type": {
-          "description": "order type",
-          "enum": [
-            "LIMIT",
-            "MARKET"
-          ],
-          "type": "string"
-        },
-        "quantity": {
-          "format": "double",
-          "description": "quantity",
-          "type": "number"
-        },
-        "limit": {
-          "format": "double",
-          "description": "limit, if present",
-          "type": "number"
-        },
-        "timeInForce": {
-          "description": "time in force",
-          "enum": [
-            "GOOD_TIL_CANCELLED",
-            "IMMEDIATE_OR_CANCEL",
-            "FILL_OR_KILL"
-          ],
-          "type": "string"
-        },
-        "trigger": {
-          "description": "trigger specification, if present",
-          "enum": [
-            "GREATER_THAN",
-            "LESS_THAN",
-            "STOP_LOSS_FIXED",
-            "STOP_LOSS_PERCENTAGE"
-          ],
-          "type": "string"
-        },
-        "triggerTargetPrice": {
-          "format": "double",
-          "description": "if trigger (price-related) is present, target price for that trigger",
-          "type": "number"
-        },
-        "clientId": {
-          "format": "uuid",
-          "description": "client-provided identifier for advanced order tracking (NYI)",
-          "type": "string",
-          "example": "00000000-0000-0000-0000-000000000000"
-        }
-      }
-    },
-    "ServiceStatus": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "description": "overall service status",
-          "enum": [
-            "GREEN",
-            "YELLOW",
-            "RED"
-          ],
-          "type": "string"
-        },
-        "serverTime": {
-          "format": "int64",
-          "description": "server time in epoch millisecond format",
-          "type": "integer"
-        }
-      }
-    },
-    "Subaccount": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "format": "uuid",
-          "description": "unique ID of this subaccount",
-          "type": "string",
-          "example": "00000000-0000-0000-0000-000000000000"
-        }
-      }
-    },
-    "NewSubaccount": {
-      "type": "object",
-      "properties": {}
-    },
-    "Withdrawal": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "format": "uuid",
-          "description": "unique ID for this withdrawal",
-          "type": "string",
-          "example": "00000000-0000-0000-0000-000000000000"
-        },
-        "currencySymbol": {
-          "description": "unique symbol of currency to withdraw",
-          "type": "string"
-        },
-        "quantity": {
-          "format": "double",
-          "description": "quantity to withdraw",
-          "type": "number"
-        },
-        "address": {
-          "description": "crypto address for this withdrawal",
-          "type": "string"
-        },
-        "txCost": {
-          "format": "double",
-          "description": "TxCost of this withdrawal",
-          "type": "number"
-        },
-        "txId": {
-          "description": "TxID associated with this withdrawal",
-          "type": "string"
-        },
-        "isAuthorized": {
-          "description": "true if this deposit has been authorized",
-          "type": "boolean"
-        },
-        "hasInvalidAddress": {
-          "description": "true if this withdrawal has an invalid target crypto address",
-          "type": "boolean"
-        },
-        "status": {
-          "description": "current status of this withdrawal",
-          "enum": [
-            "PENDING",
-            "COMPLETED",
-            "CANCELLED",
-            "ERROR"
-          ],
-          "type": "string"
-        },
-        "createdAt": {
-          "format": "date-time",
-          "description": "time stamp when this withdrawal was initiated",
-          "type": "string"
-        },
-        "completedAt": {
-          "format": "date-time",
-          "description": "time stamp when this withdrawal was completed",
-          "type": "string"
-        }
-      }
-    },
-    "NewWithdrawal": {
-      "required": [
-        "currencySymbol",
-        "quantity",
-        "address"
-      ],
-      "type": "object",
-      "properties": {
-        "currencySymbol": {
-          "description": "unique symbol of the currency to withdraw from",
-          "type": "string"
-        },
-        "quantity": {
-          "format": "double",
-          "description": "quantity to withdraw",
-          "type": "number"
-        },
-        "address": {
-          "description": "crypto address to withdraw funds to",
-          "type": "string"
-        },
-        "message": {
-          "description": "custom message (optional, depends on the currency being withdrawn)",
-          "type": "string"
-        }
-      }
-    }
-  }
 }
