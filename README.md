@@ -19,7 +19,7 @@ The docs are built using Jekyll, which serves the generated HTML. We use spectac
 To get started, first try building the API reference pages and then serve them, like so:
 1. `npm run build` - builds necessary assets
 1. `npm run serve` - starts server
-1. Navigate your browser to `http://localhost:4000/` 
+1. Navigate your browser to `http://localhost:4000/`
 
 In active development, we use npm-watch to watch for changes. Either:
 - Run `npm run dev` to serve and watch in one process
@@ -33,8 +33,15 @@ or:
 
 ## Updating the Docs with a new API Spec
 In order to update the docs site with a new version of the API spec, all you have to do is build spectacle with the new spec file.
-For example, to rebuild the v3 docs:
-1. Place the new API spec JSON file at `_data/api-spec-v3.json` (overwrite the current file)
-1. Rebuild the docs `npm run build`
 
-**Note**: _You can test the changes by starting jekyll: `npm run serve`_
+### Update v1
+1. Make changes directly to the JSON file at `_data/api-spec-v1-1.json`
+1. Rebuild the v1 docs page `npm run build:spectacle:v1`
+
+**Note**: _We do not generate an API spec file for v1, so the spec file was built manually_
+
+### Update v3
+**Note**: _The API spec file for v3 is automatically generated, and we have a few changes that we make manually, so a build step is required to get the final spec JSON used to generate the static site_
+1. Place the generated API spec JSON file at `src/_data/api-spec-v3.json` (overwrite the current file)
+1. Build the v3 spec file `npm run build:json:v3`
+1. Rebuild the v3 docs site `npm run build:spectacle:v3`
