@@ -107,7 +107,10 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/MarketPolicy"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MarketPolicy"
+              }
             }
           }
         },
@@ -164,7 +167,10 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/CurrencyPolicy"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CurrencyPolicy"
+              }
             }
           }
         },
@@ -876,12 +882,45 @@
         "x-btx-authenticated": true
       }
     },
+    "/executions/{executionId}": {
+      "get": {
+        "tags": [
+          "Executions"
+        ],
+        "description": "Retrieve information on a specific execution.\r\nNOTE: Executions from before 5/27/2019 are not available. Also, there may be a delay before an executed trade is visible in this endpoint.",
+        "operationId": "Executions_GetExecution",
+        "consumes": [
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "executionId",
+            "in": "path",
+            "description": "ID of execution to retrieve",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Execution"
+            }
+          }
+        },
+        "x-btx-authenticated": true
+      }
+    },
     "/executions": {
       "get": {
         "tags": [
           "Executions"
         ],
-        "description": "List historical executions for account.  \r\nPagination and the sort order of the results are in inverse order of the Executed field.",
+        "description": "List historical executions for account.  \r\nPagination and the sort order of the results are in inverse order of the Executed field.\r\nNOTE: Executions from before 5/27/2019 are not available. Also, there may be a delay before an executed trade is visible in this endpoint.",
         "operationId": "Executions_ListUserHistoricalExecutions",
         "consumes": [
         ],
@@ -954,7 +993,7 @@
         "tags": [
           "Executions"
         ],
-        "description": "Gets sequence number and last execution id",
+        "description": "Gets sequence number and last execution id.",
         "operationId": "Executions_ListOpen",
         "consumes": [
         ],
@@ -1346,7 +1385,7 @@
         "tags": [
           "Markets"
         ],
-        "description": "Retrieve recent candles for a specific market and candle interval.\r\nThe maximum age of the returned candles depends on the interval as follows:\r\n(MINUTE_1: 1 day, MINUTE_5: 1 day, HOUR_1: 31 days, DAY_1: 366 days).\r\nCandles for intervals without any trading activity are omitted.",
+        "description": "Retrieve recent candles for a specific market and candle interval.\r\nThe maximum age of the returned candles depends on the interval as follows:\r\n(MINUTE_1: 1 day, MINUTE_5: 1 day, HOUR_1: 31 days, DAY_1: 366 days).\r\nCandles for intervals without any trading activity will match the previous close and volume will be zero.",
         "operationId": "Markets_GetCandlesRecent",
         "consumes": [
         ],
@@ -1454,7 +1493,7 @@
         "tags": [
           "Markets"
         ],
-        "description": "Retrieve recent candles for a specific market and candle interval.\r\nThe date range of returned candles depends on the interval as follows:\r\n(MINUTE_1: 1 day, MINUTE_5: 1 day, HOUR_1: 31 days, DAY_1: 366 days).\r\nCandles for intervals without any trading activity are omitted.",
+        "description": "Retrieve recent candles for a specific market and candle interval.\r\nThe date range of returned candles depends on the interval as follows:\r\n(MINUTE_1: 1 day, MINUTE_5: 1 day, HOUR_1: 31 days, DAY_1: 366 days).\r\nCandles for intervals without any trading activity will match the previous close and volume will be zero.",
         "operationId": "Markets_GetCandlesHistorical",
         "consumes": [
         ],
@@ -3123,6 +3162,12 @@
             "CREDIT_CARD"
           ],
           "type": "string"
+        },
+        "accountId": {
+          "format": "uuid",
+          "description": "Account Id (optional)",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
         }
       }
     },
@@ -3186,7 +3231,7 @@
       "properties": {
         "lastId": {
           "format": "uuid",
-          "description": "last lot id for the user",
+          "description": "last execution id for the user",
           "type": "string",
           "example": "00000000-0000-0000-0000-000000000000"
         }
@@ -3640,6 +3685,85 @@
       "properties": {
       }
     },
+    "Withdrawal": {
+      "required": [
+        "id",
+        "currencySymbol",
+        "quantity",
+        "cryptoAddress",
+        "status",
+        "createdAt"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "description": "unique ID for this withdrawal, assigned by the service (always present)",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "currencySymbol": {
+          "description": "unique symbol of currency to withdraw (always present, matches the field in NewWithdrawal)",
+          "type": "string"
+        },
+        "quantity": {
+          "format": "double",
+          "description": "quantity to withdraw (always present, matches the field in NewWithdrawal)",
+          "type": "number"
+        },
+        "cryptoAddress": {
+          "description": "crypto address for this withdrawal (always present, matches the field in NewWithdrawal)",
+          "type": "string"
+        },
+        "cryptoAddressTag": {
+          "description": "custom message further specifying how to complete the withdrawal (optional, matches the field in NewWithdrawal)",
+          "type": "string"
+        },
+        "txCost": {
+          "format": "double",
+          "description": "TxCost of this withdrawal (always present)",
+          "type": "number"
+        },
+        "txId": {
+          "description": "TxID associated with this withdrawal (optional)",
+          "type": "string"
+        },
+        "status": {
+          "description": "current status of this withdrawal (always present)",
+          "enum": [
+            "REQUESTED",
+            "AUTHORIZED",
+            "PENDING",
+            "COMPLETED",
+            "ERROR_INVALID_ADDRESS",
+            "CANCELLED"
+          ],
+          "type": "string"
+        },
+        "createdAt": {
+          "format": "date-time",
+          "description": "time stamp when this withdrawal was initiated (always present)",
+          "type": "string"
+        },
+        "completedAt": {
+          "format": "date-time",
+          "description": "time stamp when this withdrawal was completed (optional)",
+          "type": "string"
+        },
+        "clientWithdrawalId": {
+          "format": "uuid",
+          "description": "client-provided identifier for idempotency (optional)",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "accountId": {
+          "format": "uuid",
+          "description": "Account Id (optional)",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        }
+      }
+    },
     "SentTransferInfo": {
       "required": [
         "toSubaccountId",
@@ -3767,79 +3891,6 @@
         "toMasterAccount": {
           "description": "transfer to master account",
           "type": "boolean"
-        }
-      }
-    },
-    "Withdrawal": {
-      "required": [
-        "id",
-        "currencySymbol",
-        "quantity",
-        "cryptoAddress",
-        "status",
-        "createdAt"
-      ],
-      "type": "object",
-      "properties": {
-        "id": {
-          "format": "uuid",
-          "description": "unique ID for this withdrawal, assigned by the service (always present)",
-          "type": "string",
-          "example": "00000000-0000-0000-0000-000000000000"
-        },
-        "currencySymbol": {
-          "description": "unique symbol of currency to withdraw (always present, matches the field in NewWithdrawal)",
-          "type": "string"
-        },
-        "quantity": {
-          "format": "double",
-          "description": "quantity to withdraw (always present, matches the field in NewWithdrawal)",
-          "type": "number"
-        },
-        "cryptoAddress": {
-          "description": "crypto address for this withdrawal (always present, matches the field in NewWithdrawal)",
-          "type": "string"
-        },
-        "cryptoAddressTag": {
-          "description": "custom message further specifying how to complete the withdrawal (optional, matches the field in NewWithdrawal)",
-          "type": "string"
-        },
-        "txCost": {
-          "format": "double",
-          "description": "TxCost of this withdrawal (always present)",
-          "type": "number"
-        },
-        "txId": {
-          "description": "TxID associated with this withdrawal (optional)",
-          "type": "string"
-        },
-        "status": {
-          "description": "current status of this withdrawal (always present)",
-          "enum": [
-            "REQUESTED",
-            "AUTHORIZED",
-            "PENDING",
-            "COMPLETED",
-            "ERROR_INVALID_ADDRESS",
-            "CANCELLED"
-          ],
-          "type": "string"
-        },
-        "createdAt": {
-          "format": "date-time",
-          "description": "time stamp when this withdrawal was initiated (always present)",
-          "type": "string"
-        },
-        "completedAt": {
-          "format": "date-time",
-          "description": "time stamp when this withdrawal was completed (optional)",
-          "type": "string"
-        },
-        "clientWithdrawalId": {
-          "format": "uuid",
-          "description": "client-provided identifier for idempotency (optional)",
-          "type": "string",
-          "example": "00000000-0000-0000-0000-000000000000"
         }
       }
     },
