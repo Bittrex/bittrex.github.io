@@ -438,13 +438,14 @@
           <div class="doc-row">
             <div class="doc-copy">
               <p>
-                <strong>04/08/2021</strong>
+                <strong>04/09/2021</strong>
               </p>
               <ul>
                 <li>You can now get an
                   <a href="#operation--executions--executionId--get">execution by id</a>
                 </li>
                 <li>Miscellaneous clarifications and additional error codes documented</li>
+                <li>Updated known issues list</li>
               </ul>
               <p>
                 <strong>02/18/2021</strong>
@@ -492,14 +493,9 @@
         <div class="panel">
           <div class="doc-row">
             <div class="doc-copy">
-              <ul>
-                <li>
-                  <p>The trigger price shown on the website for trailing stop orders does not update automatically. The see the updated trigger price, refresh the page or query the api.</p>
-                </li>
-                <li>
-                  <p>A conditional order cancelled via OCO will not automatically be removed from the list of open conditional orders on the website despite being cancelled. Refreshing the page will correct the issue.</p>
-                </li>
-              </ul>
+              <p>Refer to the
+                <a href="https://github.com/Bittrex/bittrex.github.io/issues">GitHub issues page</a>
+              </p>
             </div>
           </div>
         </div>
@@ -569,6 +565,7 @@
 </code></pre>
               <p>Example Value:</p> <pre><code class="hljs language-markdown">cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e
 </code></pre>
+              <p>This is the correct value of the content hash for any request with no body.</p>
               <hr>
               <h4 id="api-subaccount-id-only-for-subaccount-feature">Api-Subaccount-Id (Only for subaccount feature)</h4>
               <p>(NOTE: This functionality is limited to partners and unavailable to general traders.)</p>
