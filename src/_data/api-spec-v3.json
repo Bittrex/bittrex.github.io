@@ -34,6 +34,63 @@
         "x-btx-authenticated": true
       }
     },
+    "/account/fees/trading": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "description": "Get trade fees for each markets when marketSymbol is not provided",
+        "operationId": "Account_GetAccountTradeFeeByMarkets",
+        "consumes": [
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CommissionRatesWithMarket"
+              }
+            }
+          }
+        },
+        "x-btx-authenticated": true
+      }
+    },
+    "/account/fees/trading/{marketSymbol}": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "description": "Get trade fee for the given marketSymbol",
+        "operationId": "Account_GetAccountTradeFeeByMarket",
+        "consumes": [
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "marketSymbol",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommissionRatesWithMarket"
+            }
+          }
+        },
+        "x-btx-authenticated": true
+      }
+    },
     "/account/volume": {
       "get": {
         "tags": [
@@ -2550,6 +2607,35 @@
           "description": "The account ID associated with this request only for master accounts",
           "type": "string",
           "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "actionsNeeded": {
+          "description": "List of actions the user requires",
+          "type": "array",
+          "items": {
+            "enum": [
+              "SOURCE_OF_FUNDS"
+            ],
+            "type": "string"
+          }
+        }
+      }
+    },
+    "CommissionRatesWithMarket": {
+      "type": "object",
+      "properties": {
+        "marketSymbol": {
+          "description": "MarketSymbol",
+          "type": "string"
+        },
+        "makerRate": {
+          "format": "double",
+          "description": "MakerRate",
+          "type": "number"
+        },
+        "takerRate": {
+          "format": "double",
+          "description": "TakerRate",
+          "type": "number"
         }
       }
     },
@@ -2624,6 +2710,10 @@
         "wireTransfer": {
           "description": "true if the current user can deposit this currency via wire transfer",
           "type": "boolean"
+        },
+        "ach": {
+          "description": "true if the current user can deposit this currency via ACH",
+          "type": "boolean"
         }
       }
     },
@@ -2636,6 +2726,10 @@
         },
         "wireTransfer": {
           "description": "true if the current user can withdraw this currency via wire transfer",
+          "type": "boolean"
+        },
+        "ach": {
+          "description": "true if the current user can withdraw this currency via ACH",
           "type": "boolean"
         }
       }
@@ -3121,6 +3215,12 @@
           "description": "crypto address for this deposit",
           "type": "string"
         },
+        "fundsTransferMethodId": {
+          "format": "uuid",
+          "description": "Payment MethodId",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
         "cryptoAddressTag": {
           "description": "crypto address tag for this deposit (optional, depends on the coin type of currency being deposited)",
           "type": "string"
@@ -3159,7 +3259,8 @@
           "enum": [
             "BLOCKCHAIN",
             "WIRE_TRANSFER",
-            "CREDIT_CARD"
+            "CREDIT_CARD",
+            "ACH"
           ],
           "type": "string"
         },
@@ -3168,6 +3269,30 @@
           "description": "Account Id (optional)",
           "type": "string",
           "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "error": {
+          "$ref": "#/definitions/Error",
+          "description": "error details, present if an error occurred during processing"
+        }
+      }
+    },
+    "Error": {
+      "required": [
+        "code"
+      ],
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "error code associated with this particular error",
+          "type": "string"
+        },
+        "detail": {
+          "description": "additional information describing the error and/or the included data (optional)",
+          "type": "string"
+        },
+        "data": {
+          "description": "a set of key-value pairs containing data relevant to this particular error (optional)",
+          "type": "object"
         }
       }
     },
@@ -3719,6 +3844,12 @@
           "description": "custom message further specifying how to complete the withdrawal (optional, matches the field in NewWithdrawal)",
           "type": "string"
         },
+        "fundsTransferMethodId": {
+          "format": "uuid",
+          "description": "unique ID for the funds transfer method (i.e. bank account) used as a destination for this withdrawal",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
         "txCost": {
           "format": "double",
           "description": "TxCost of this withdrawal (always present)",
@@ -3736,7 +3867,8 @@
             "PENDING",
             "COMPLETED",
             "ERROR_INVALID_ADDRESS",
-            "CANCELLED"
+            "CANCELLED",
+            "NEW"
           ],
           "type": "string"
         },
@@ -3756,11 +3888,25 @@
           "type": "string",
           "example": "00000000-0000-0000-0000-000000000000"
         },
+        "target": {
+          "description": "target of the withdrawal",
+          "enum": [
+            "BLOCKCHAIN",
+            "WIRE_TRANSFER",
+            "CREDIT_CARD",
+            "ACH"
+          ],
+          "type": "string"
+        },
         "accountId": {
           "format": "uuid",
           "description": "Account Id (optional)",
           "type": "string",
           "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "error": {
+          "$ref": "#/definitions/Error",
+          "description": "error details, present if an error occurred during processing"
         }
       }
     },
@@ -3897,8 +4043,7 @@
     "NewWithdrawal": {
       "required": [
         "currencySymbol",
-        "quantity",
-        "cryptoAddress"
+        "quantity"
       ],
       "type": "object",
       "properties": {
@@ -3918,6 +4063,12 @@
         "cryptoAddressTag": {
           "description": "custom message further specifying how to complete the withdrawal\r\n(optional, depends on whether the cryptoAddress is sufficient for this currency)",
           "type": "string"
+        },
+        "fundsTransferMethodId": {
+          "format": "uuid",
+          "description": "unique ID for the funds transfer method (i.e. bank account) used as a destination for this withdrawal",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
         },
         "clientWithdrawalId": {
           "format": "uuid",
@@ -3980,26 +4131,6 @@
           "description": "order Id to be cancelled.",
           "type": "string",
           "example": "00000000-0000-0000-0000-000000000000"
-        }
-      }
-    },
-    "Error": {
-      "required": [
-        "code"
-      ],
-      "type": "object",
-      "properties": {
-        "code": {
-          "description": "error code associated with this particular error",
-          "type": "string"
-        },
-        "detail": {
-          "description": "additional information describing the error and/or the included data (optional)",
-          "type": "string"
-        },
-        "data": {
-          "description": "a set of key-value pairs containing data relevant to this particular error (optional)",
-          "type": "object"
         }
       }
     }
